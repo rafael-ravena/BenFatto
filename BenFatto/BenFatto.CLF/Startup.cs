@@ -1,4 +1,4 @@
-using BenFatto.CLF.Configuration;
+using BenFatto.CLF;
 using BenFatto.CLF.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,10 +29,6 @@ namespace BenFatto.CLF
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.Configure<DataBaseConfiguration>(Configuration.GetSection("LogFileDB"));
-            services.AddDbContext<ClfContext>(option =>
-                option.UseNpgsql(Configuration.GetConnectionString("LogFileDB"))
-                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

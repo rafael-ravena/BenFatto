@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenFatto.CLF", "BenFatto.CLF\BenFatto.CLF.csproj", "{A1E3F23C-9BB9-4733-B9D7-5567DF327088}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenFatto.CLF", "BenFatto.CLF\BenFatto.CLF.csproj", "{A1E3F23C-9BB9-4733-B9D7-5567DF327088}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenFatto.Core", "BenFatto.Core\BenFatto.Core.csproj", "{2D5FF29D-06C2-46DC-AEFB-5603F0E5E9F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandyMan", "HandyMan\HandyMan.csproj", "{AC6F2D07-0743-46D9-AA6A-1E287A77D60C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenFatto.CharSeparated", "BenFatto.CharSeparated\BenFatto.CharSeparated.csproj", "{4B9E4826-E816-443F-8F1F-4E3928FA25F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenFatto.FixedLenght", "BenFatto.FixedLenght\BenFatto.FixedLenght.csproj", "{3D1FDB0F-8E50-49FA-ACF7-9E20E3BE4612}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{AC6F2D07-0743-46D9-AA6A-1E287A77D60C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC6F2D07-0743-46D9-AA6A-1E287A77D60C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC6F2D07-0743-46D9-AA6A-1E287A77D60C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B9E4826-E816-443F-8F1F-4E3928FA25F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B9E4826-E816-443F-8F1F-4E3928FA25F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B9E4826-E816-443F-8F1F-4E3928FA25F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B9E4826-E816-443F-8F1F-4E3928FA25F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1FDB0F-8E50-49FA-ACF7-9E20E3BE4612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1FDB0F-8E50-49FA-ACF7-9E20E3BE4612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1FDB0F-8E50-49FA-ACF7-9E20E3BE4612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1FDB0F-8E50-49FA-ACF7-9E20E3BE4612}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

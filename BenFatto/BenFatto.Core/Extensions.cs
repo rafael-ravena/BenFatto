@@ -10,11 +10,28 @@ namespace BenFatto
 {
     public static class Extensions
     {
-        public static string FormateTimeZone(this DateTime value, int timeZone) => value.FormateTimeZone(timeZone, "dd/MMM/yyyy:HH:ss:mm");
-
-        public static string FormateTimeZone(this DateTime value, int timeZone, string format)
+        public static string FormateTimeZone(this DateTime value, int timeZone, CultureInfo cultureInfo, string format)
         {
-            return $"{value.ToString(format, CultureInfo.GetCultureInfo("en-US"))} {timeZone.ToTimeZoneString()}";
+            return $"{value.ToString(format, cultureInfo)} {timeZone.ToTimeZoneString()}";
+        }
+
+        public static DateTime BeginningOfDay(this DateTime value)
+        {
+            return new DateTime(value.Year, value.Month, value.Day, 0, 0, 0);
+        }
+
+        public static DateTime BeginningOfHour(this DateTime value)
+        {
+            return new DateTime(value.Year, value.Month, value.Day, value.Hour, 0, 0);
+        }
+
+        public static DateTime NextHour(this DateTime value)
+        {
+            return value.BeginningOfHour().AddHours(1);
+        }
+        public static DateTime NextDay(this DateTime value)
+        {
+            return value.BeginningOfDay().AddDays(1);
         }
 
         public static string ToTimeZoneString(this int value)

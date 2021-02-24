@@ -10,13 +10,9 @@ namespace BenFatto.CLF.Model
     {
         public readonly string cnStr;
         public ClfContext()
-        {
-        }
-
-        public ClfContext(string connectionString)
             : base()
         {
-            cnStr = connectionString;
+            cnStr = DbConfiguration.Current.ConnectionString;
         }
 
         public virtual DbSet<Import> Imports { get; set; }
@@ -54,7 +50,7 @@ namespace BenFatto.CLF.Model
 
                 entity.Property(e => e.SuccessCount).HasDefaultValueSql("0");
 
-                entity.Property(e => e.UserName).HasMaxLength(255);
+                entity.Property(e => e.UserId).HasDefaultValueSql("0");
 
                 entity.Property(e => e.When).HasColumnType("date");
             });
@@ -63,7 +59,7 @@ namespace BenFatto.CLF.Model
             {
                 entity.ToTable("LogRow");
 
-                entity.Property(e => e.Date).HasColumnType("time without time zone");
+                entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.IpAddress)
                     .IsRequired()
@@ -85,8 +81,7 @@ namespace BenFatto.CLF.Model
 
                 entity.Property(e => e.RfcId)
                     .IsRequired()
-                    .HasMaxLength(255)
-                    .HasColumnName("RFCId");
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.UserAgent).HasMaxLength(4096);
 
@@ -116,6 +111,10 @@ namespace BenFatto.CLF.Model
                     .WithMany(p => p.LogRowMismatches)
                     .HasForeignKey(d => d.ImportId)
                     .HasConstraintName("FK_Import_LogRowMismatch");
+
+                entity.Property(e => e.Corrected).HasColumnType("boolean").HasDefaultValue(false);
+                entity.Property(e => e.CorrectedAt).HasColumnType("date").HasDefaultValue(DateTime.MaxValue);
+
             });
 
             OnModelCreatingPartial(modelBuilder);
