@@ -70,10 +70,14 @@ namespace BenFatto.CLF.Model
         public string OriginalLine { get; set; }
         [Description("Row number in original file")]
         public int RowNumber { get; set; }
-
         public virtual Import Import { get; set; }
 
         #region [ Instance Methods ]
+
+        public void SetMethodByName(string value)
+        {
+            Method = (short)((int)Enum.Parse(typeof(LogRowMethod), value, true));
+        }
 
         public static LogRow Parse(string lineText, long importId, int lineNumber)
         {

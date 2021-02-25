@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using BenFatto;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace HandyMan
 {
@@ -9,6 +11,7 @@ namespace HandyMan
     {
         static void Main(string[] args)
         {
+            Instructions();
             string line;
             while ("exit" != (line = Console.ReadLine()))
             {
@@ -20,30 +23,64 @@ namespace HandyMan
                     case "settings":
                         TestSettingsReader();
                         break;
+                    case "createfile":
+                        string file = GenerateFile();
+                        WriteOut($"File successfuly created: {file}");
+                        break;
                     case "file":
-                        TestFileImporter();
+                        ImportFewFiles();
+                        break;
+                    case "parse":
+                        WriteOut("Enter the row to test and press enter!");
+                        TestLogRowParse(Console.ReadLine());
                         break;
                     case "help":
                         HelpMe();
                         break;
+                    case "post":
+                        TestFilePostAsync();
+                        break;
                     default:
-                        WriteOut("Enter the row to test and press enter!");
-                        TestLogRowParse(Console.ReadLine());
+                        Instructions();
                         break;
                 }
             }
+        }
+
+        private static async System.Threading.Tasks.Task TestFilePostAsync()
+        {
+            string file = GenerateFile();
+            string url = "https://localhost:44376/api/Files";
+            byte[] upload = File.ReadAllBytes(file);
+            var body = new { userId = 0, file = upload };
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(body));
+            HttpClient client = new HttpClient();
+            var response = await client.PostAsync(url,  content);
+            WriteOut(response.Content.ToString());
+        }
+
+        private static void Instructions()
+        {
+            WriteOut("Type the command and press enter! (type help for list of available commands)");
+        }
+
+        private static void ImportFewFiles()
+        {
+            for (int i = 0; i < 5; i++)
+                TestFileImporter();
         }
 
         private static void TestFileImporter()
         {
             string file = GenerateFile();
             BenFatto.CLF.Service.FileProcessor processor = new BenFatto.CLF.Service.FileProcessor(file, 0);
-            processor.ProcessFile();
+            using (ClfContext context = new ClfContext())
+                processor.ProcessFile(context);
+            WriteOut($"File imported successfuly: {file} at {DateTime.Now.ToString(BenFatto.CLF.AppSettings.Current.DateFormat, BenFatto.CLF.AppSettings.Current.CultureInfo)}");
         }
 
         private static string GenerateFile()
         {
-            string[] IpAddresses = { "144.203.204.43", "22.52.125.200", "99.22.11.33", "11.20.0.100", "14.209.90.10", "88.11.23.55", "100.10.12.10", "94.52.44.33", "112.22.33.200", "44.88.100.115", "23.12.45.12", "55.99.12.44", "220.200.103.204", "221.123.22.151", "127.0.0.1", "132.10.11.5", "8.8.8.8", "214.44.55.123", "85.24.94.4", string.Empty };
             string[] RfcIds = { "-", "user-identifier", "intranet", "some-other", "lovedoodles", "code99", string.Empty };
             string[] Users = { "-", "Mike", "Bob", "Tom", "Kenny", "Rick", "Morthy", string.Empty };
 
@@ -52,7 +89,15 @@ namespace HandyMan
             string[] Protocols = { "HTTP/1.0", "HTTP/2.0", string.Empty };
             int[] ResponseCodes = { -1, 200, 204, 404, 500, 400, 422 };
 
-            string[] Agents = { "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0", "Microsoft Office/15.0 (Windows NT 6.1; Microsoft Outlook 15.0.4631; Pro)", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299", string.Empty };
+            string[] Agents = {
+                "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0",
+                "Microsoft Office/15.0 (Windows NT 6.1; Microsoft Outlook 15.0.4631; Pro)",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299",
+                "Mozilla/5.0 (Linux; Android 10; VOG-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.181 Mobile Safari/537.36 OPR/61.2.3076.56749",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36 Edg/88.0.705.74",
+                "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 EdgiOS/46.1.2 Mobile/15E148 Safari/605.1.15",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36 Edge/44.19041.4788",
+                string.Empty };
 
             string fileName = $"{Directory.GetCurrentDirectory()}\\{DateTime.Now.ToString("yyyyMMdd-hhmmss")}.log";
 
@@ -62,7 +107,7 @@ namespace HandyMan
                 int count = 0;
                 for (int i = 0; i < random.Next((int)1e4, (int)1e5); i++)
                 {
-                    string line = $"{IpAddresses[random.Next(0, IpAddresses.Length)]} ";
+                    string line = $"{random.Next(1, 256)}.{random.Next(0, 256)}.{random.Next(0, 256)}.{random.Next(0, 256)} ";
                     line += $"{RfcIds[random.Next(0, RfcIds.Length)]} ";
                     line += $"{Users[random.Next(0, Users.Length)]} ";
                     line += $"[{DateTime.Now.AddMilliseconds(random.Next((int)-10368e5, (int)10368e5)).ToString(BenFatto.CLF.AppSettings.Current.DateFormat, BenFatto.CLF.AppSettings.Current.CultureInfo)} {(random.Next(1, 12) * 100).ToTimeZoneString()}] ";

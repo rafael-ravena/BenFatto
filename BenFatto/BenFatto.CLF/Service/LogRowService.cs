@@ -5,22 +5,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace BenFatto.CLF.Service
 {
-    public class LogRowService : ModelServiceBase<Model.LogRow>, IDisposable
+    public class LogRowService : ModelServiceBase<Model.LogRow>
     {
         public LogRowService(ClfContext context) : base(context) { }
         public override IEnumerable<Model.LogRow> Filter(Model.LogRow entity)
         {
-            return Context.LogRows.Include(e => e.Import).Where(e =>
-                (e.ImportId == entity.ImportId || entity.ImportId == 0) &&
-                (e.IpAddress.Contains(entity.IpAddress) || string.Empty == entity.IpAddress) &&
-                (e.ResponseCode == entity.ResponseCode || entity.ResponseCode == 0) &&
-                ((e.Date >= entity.Date.BeginningOfHour() && e.Date < entity.Date.NextHour()) || DateTime.MinValue == entity.Date) &&
-                (e.UserAgent.Contains(entity.UserAgent) || string.Empty == entity.UserAgent) &&
-                (e.Method == entity.Method || entity.Method == 0)
-            );
+            return Filter(entity, 0);
         }
+        internal IEnumerable<LogRow> Filter(LogRow entity, int page)
+        {
+            return Filter(entity, page, AppSettings.Current.PageSize);
+        }
+        internal IEnumerable<LogRow> Filter(LogRow entity, int page, int size)
+        {
+            return Context.LogRows.Include(e => e.Import).Where(e =>
+                 (e.ImportId == entity.ImportId || 0 == entity.ImportId) &&
+                 (string.IsNullOrEmpty(entity.IpAddress) || e.IpAddress.Contains(entity.IpAddress)) &&
+                 (e.ResponseCode == entity.ResponseCode || 0 == entity.ResponseCode) &&
+                 ((e.Date >= entity.Date.BeginningOfHour() && e.Date < entity.Date.NextHour()) || DateTime.MinValue == entity.Date) &&
+                 (string.IsNullOrEmpty(entity.UserAgent) || e.UserAgent.Contains(entity.UserAgent)) &&
+                 (e.Method == entity.Method || 0 == entity.Method)
+            ).Skip(page * size).Take(size);
+        }
+
 
         public override Model.LogRow Get(long entityId)
         {
@@ -28,6 +38,7 @@ namespace BenFatto.CLF.Service
         }
 
         List<Model.LogRow> LogRows { get; set; }
+
         public void InsertCollection(Model.LogRow entity)
         {
             if (null == LogRows)
@@ -45,12 +56,10 @@ namespace BenFatto.CLF.Service
             Context.SaveChanges();
             LogRows.Clear();
         }
-
-        public void Dispose()
+        public IEnumerable<DTO.UserAgent> GetDistinctUserAgents()
         {
-            if (null != LogRows)
-                LogRows.Clear();
-            LogRows = null;
+            return Context.LogRows.Select(e => new DTO.UserAgent { Name = e.UserAgent }).Distinct();
         }
+
     }
 }

@@ -17,6 +17,7 @@ namespace BenFatto.CLF
             AutoFlush = configuration.GetValue<bool>("AutoFlush");
             DateFormat = configuration.GetValue<string>("DateFormat");
             CultureInfo = CultureInfo.GetCultureInfo(configuration.GetValue<string>("DateCulture"));
+            PageSize = configuration.GetValue<int>("PageSize");
         }
         public static AppSettings Current
         {
@@ -36,6 +37,6 @@ namespace BenFatto.CLF
         public bool AutoFlush { get; set; }
         public string DateFormat { get; set; }
         public CultureInfo CultureInfo { get; set; }
-
+        public int PageSize { get; set; }
     }
 }

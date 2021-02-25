@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -22,7 +23,6 @@ namespace BenFatto.CLF.Model
         public int RowCount { get; set; }
         public int ErrorCount { get; set; }
         public int SuccessCount { get; set; }
-
         public virtual ICollection<LogRowMismatch> LogRowMismatches { get; set; }
         public virtual ICollection<LogRow> LogRows { get; set; }
     }

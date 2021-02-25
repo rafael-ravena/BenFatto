@@ -20,8 +20,9 @@ namespace BenFatto.CLF.Service
             Context.Entry(entity).State = entity.Id == 0 ? EntityState.Added : EntityState.Modified;
             Context.SaveChanges();
         }
-        public void Delete(TEntity entity)
+        public void Delete(long id)
         {
+            TEntity entity = Get(id);
             Context.Entry(entity).State = EntityState.Deleted;
             Context.SaveChanges();
         }

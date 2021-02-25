@@ -19,45 +19,44 @@ namespace BenFatto.CLF.Service
                 When = DateTime.Now
             };
         }
-        public void ProcessFile()
+        public void ProcessFile(ClfContext context)
         {
-            using (ClfContext context = new ClfContext())
-            {
-                ImportService importService = new ImportService(context);
-                importService.InsertOrUpdate(Import);
+            ImportService importService = new ImportService(context);
+            importService.InsertOrUpdate(Import);
 
-                List<string> errors = new List<string>();
-                using (LogRowService service = new LogRowService(context))
-                using (LogRowMismatchService mismatchService = new LogRowMismatchService(context))
-                using (StreamReader file = new StreamReader(Import.FileName))
+            List<string> errors = new List<string>();
+            LogRowService service = new LogRowService(context);
+            LogRowMismatchService mismatchService = new LogRowMismatchService(context);
+            using (StreamReader file = new StreamReader(Import.FileName))
+            {
+                string line;
+                while (null != (line = file.ReadLine()))
                 {
-                    string line;
-                    while (null != (line = file.ReadLine()))
+                    try
                     {
-                        try
-                        {
-                            Import.RowCount++;
-                            service.InsertCollection(Model.LogRow.Parse(line, Import.Id, Import.RowCount));
-                            Import.SuccessCount++;
-                        }
-                        catch (Exception ex)
-                        {
-                            Import.ErrorCount++;
-                            errors.Add(line);
-                            mismatchService.InsertCollection(LogRowMismatch.Parse(line, Import.Id, Import.RowCount, Import.ErrorCount, ex));
-                        }
+                        Import.RowCount++;
+                        service.InsertCollection(Model.LogRow.Parse(line, Import.Id, Import.RowCount));
+                        Import.SuccessCount++;
+                    }
+                    catch (Exception ex)
+                    {
+                        Import.ErrorCount++;
+                        errors.Add(line);
+                        mismatchService.InsertCollection(LogRowMismatch.Parse(line, Import.Id, Import.RowCount, Import.ErrorCount, ex));
                     }
                 }
-                if (Import.ErrorCount > 0)
+            }
+            if (Import.ErrorCount > 0)
+            {
+                Import.MismatchRowsFileName = Import.FileName + ".err";
+                context.SaveChanges();
+                using (StreamWriter file = File.CreateText(Import.MismatchRowsFileName))
                 {
-                    using (StreamWriter file = File.CreateText(Import.FileName + ".err"))
+                    foreach (string line in errors)
                     {
-                        foreach (string line in errors)
-                        {
-                            file.WriteLine(line);
-                        }
-                        file.Flush();
+                        file.WriteLine(line);
                     }
+                    file.Flush();
                 }
             }
         }

@@ -7,17 +7,25 @@ using System.Threading.Tasks;
 
 namespace BenFatto.CLF.Service
 {
-    public class LogRowMismatchService : ModelServiceBase<Model.LogRowMismatch>, IDisposable
+    public class LogRowMismatchService : ModelServiceBase<Model.LogRowMismatch>
     {
         public LogRowMismatchService(ClfContext context) : base(context) { }
 
         public override IEnumerable<LogRowMismatch> Filter(LogRowMismatch entity)
         {
+            return Filter(entity, 0);
+        }
+        public IEnumerable<LogRowMismatch> Filter(LogRowMismatch entity, int page)
+        {
+            return Filter(entity, page, AppSettings.Current.PageSize);
+        }
+        public IEnumerable<LogRowMismatch> Filter(LogRowMismatch entity, int page, int size)
+        {
             return Context.LogRowMismatches.Include(e => e.Import).Where(e =>
-                (e.ImportId == entity.ImportId || entity.ImportId == 0) &&
-                (e.ThrownException.Contains(entity.ThrownException) || string.Empty == entity.ThrownException) &&
-                (e.Row.Contains(entity.Row) || string.Empty == entity.Row)
-            );
+                (e.ImportId == entity.ImportId || 0 == entity.ImportId) &&
+                (string.IsNullOrEmpty(entity.ThrownException) || e.ThrownException.Contains(entity.ThrownException)) &&
+                (string.IsNullOrEmpty(entity.Row) || e.Row.Contains(entity.Row))
+            ).Skip(page * size).Take(size);
         }
 
         public override LogRowMismatch Get(long entityId)
@@ -43,11 +51,5 @@ namespace BenFatto.CLF.Service
             LogRowMismatches.Clear();
         }
 
-        public void Dispose()
-        {
-            if (null != LogRowMismatches)
-                LogRowMismatches.Clear();
-            LogRowMismatches = null;
-        }
     }
 }

@@ -25,6 +25,8 @@ namespace BenFatto.CLF.Model
             logRow.RowNumber = lineNumber;
             logRow.ImportId = importId;
             logRow.ThrownException = exception.ToString();
+            logRow.Corrected = false;
+            logRow.CorrectedAt = DateTime.Now.AddYears(20);
             return logRow;
         }
         public override string ToString()
