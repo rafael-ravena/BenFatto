@@ -41,7 +41,7 @@ namespace BenFatto
             if (searchPos < 0)
                 return string.Empty;
             string returnValue = value.Substring(0, searchPos);
-            value = value.Substring(searchPos + 1);
+            value = value[(searchPos + 1)..];
             return returnValue;
         }
     }

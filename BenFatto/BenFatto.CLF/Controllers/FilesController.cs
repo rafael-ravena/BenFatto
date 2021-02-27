@@ -24,6 +24,8 @@ namespace BenFatto.CLF.Controllers
                 file.CopyTo(stream);
             }
             Service.FileProcessor processor = new Service.FileProcessor(uploadedFile, userId);
+            Model.ClfContext context = new Model.ClfContext();
+            processor.ProcessFile(context);
         }
     }
 }

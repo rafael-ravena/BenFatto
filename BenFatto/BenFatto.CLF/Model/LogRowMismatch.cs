@@ -15,7 +15,6 @@ namespace BenFatto.CLF.Model
         public string ThrownException { get; set; }
         public bool Corrected { get; set; }
         public DateTime CorrectedAt { get; set; }
-
         public virtual Import Import { get; set; }
         public static LogRowMismatch Parse(string line, long importId, int originalLineNumber, int lineNumber, Exception exception)
         {

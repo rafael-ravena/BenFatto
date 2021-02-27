@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BenFatto.App.DTO.Import>
+@{
+    ViewData["Title"] = "Imports";
+}
+@await Html.PartialAsync("_Filter", new BenFatto.App.DTO.Import())
+<div class="row">
+    <div class="col">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width="10%">
+                        @Html.DisplayNameFor(model => model.When)
+                    </th>
+                    <th width="25%">
+                        @Html.DisplayNameFor(model => model.FileName)
+                    </th>
+                    <th width="25%">
+                        @Html.DisplayNameFor(model => model.MismatchRowsFileName)
+                    </th>
+                    <th width="8%">
+                        @Html.DisplayNameFor(model => model.RowCount)
+                    </th>
+                    <th width="8%">
+                        @Html.DisplayNameFor(model => model.ErrorCount)
+                    </th>
+                    <th width="8%">
+                        @Html.DisplayNameFor(model => model.SuccessCount)
+                    </th>
+                    <th width="16%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.When)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MismatchRowsFileName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RowCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ErrorCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SuccessCount)
+                        </td>
+                        <td>
+                            <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary"
+                               title="View details" data-toggle="modal" data-target="#ModalDetail"
+                               data-behavior="display-modal" data-arg="@(item.FileNameDisplay)">
+                                <i class="fa fa-fw fa-info-circle"></i>
+                            </a>
+                            <a asp-controller="Imports" asp-action="Index" asp-route-importId="@item.Id" asp-route-page="0" class="btn btn-sm btn-outline-secondary" title="View imported lines">
+                                <i class="fa fa-fw fa-file-archive-o"></i>
+                            </a>
+                            <a asp-controller="LogRowMismatches" asp-action="Index" asp-route-importId="@item.Id" asp-route-page="0" class="btn btn-sm btn-outline-danger" title="View Errors">
+                                <i class="fa fa-fw fa-exclamation-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

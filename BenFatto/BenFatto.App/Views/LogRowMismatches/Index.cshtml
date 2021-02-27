@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BenFatto.App.DTO.LogRowMismatch>
+@{
+    ViewData["Title"] = "Mismaches in file";
+}
+@await Html.PartialAsync("_Filter", new BenFatto.App.DTO.LogRowMismatch())
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="10%">
+                        @Html.DisplayNameFor(model => model.OriginalRowNumber)
+                    </th>
+                    <th width="10%">
+                        @Html.DisplayNameFor(model => model.RowNumber)
+                    </th>
+                    <th width="60%">
+                        @Html.DisplayNameFor(model => model.Row)
+                    </th>
+                    <th width="10%">
+                        @Html.DisplayNameFor(model => model.Corrected)
+                    </th>
+                    <th width="10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OriginalRowNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RowNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Row)
+                        </td>
+                        <td class="text-center">
+                            <span class="fa fa-@(item.Corrected ? "check text-success" : "bug text-danger")"></span>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
+                               asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-primary"
+                               title="Edit This Error Row!" data-toggle="modal" data-target="#ModalDetail"
+                               data-behavior="edit-element" data-arg="Row with error" id="RowDetail@(item.Id)">
+                                <i class="fa fa-fw fa-edit"></i>
+                            </a>
+                            <a asp-controller="LogRowMismatches" asp-action="Delete" asp-route-Id="@item.Id" asp-route-importId="@item.ImportId"
+                               asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-danger" title="Delete This Error Row?"
+                               data-behavior="confirm-delete" data-arg="Delete Row With Error?" data-target="#RowDetail@(item.Id)">
+                                <i class="fa fa-fw fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <button type="button" class="btn btn-info" data-behavior="navigate-page" data-arg="-1">
+            <i class="fa fa-arrow-left"></i> Last
+        </button>
+    </div>
+    <div class="col-6 text-right">
+        <button type="button" class="btn btn-info" data-behavior="navigate-page" data-arg="1">
+            Next <i class="fa fa-arrow-right"></i>
+        </button>
+    </div>
+</div>

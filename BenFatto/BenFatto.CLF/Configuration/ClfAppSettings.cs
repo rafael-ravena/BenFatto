@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace BenFatto.CLF
 {
-    public class AppSettings
+    public class ClfAppSettings
     {
-        private static AppSettings _settings;
-        public AppSettings(IConfiguration configuration)
+        private static ClfAppSettings _settings;
+        public ClfAppSettings(IConfiguration configuration)
         {
             BatchSize = configuration.GetValue<int>("BatchSize");
             AutoFlush = configuration.GetValue<bool>("AutoFlush");
@@ -19,7 +19,7 @@ namespace BenFatto.CLF
             CultureInfo = CultureInfo.GetCultureInfo(configuration.GetValue<string>("DateCulture"));
             PageSize = configuration.GetValue<int>("PageSize");
         }
-        public static AppSettings Current
+        public static ClfAppSettings Current
         {
             get
             {
@@ -28,10 +28,10 @@ namespace BenFatto.CLF
                 return _settings;
             }
         }
-        private static AppSettings GetCurrentSettings()
+        private static ClfAppSettings GetCurrentSettings()
         {
             IConfigurationRoot configuration = Helper.GetConfiguration();
-            return new AppSettings(configuration.GetSection("Settings"));
+            return new ClfAppSettings(configuration.GetSection("Settings"));
         }
         public int BatchSize { get; set; }
         public bool AutoFlush { get; set; }

@@ -1,0 +1,58 @@
+﻿@model BenFatto.App.DTO.Import
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => @model.When)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.When)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => @model.FileName)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.FileName)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => @model.MismatchRowsFileName)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.MismatchRowsFileName)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => @model.RowCount)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.RowCount)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => @model.ErrorCount)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.ErrorCount)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => @model.SuccessCount)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.SuccessCount)
+    </div>
+</div>

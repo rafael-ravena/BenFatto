@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BenFatto.App.Configuration
+namespace BenFatto.App
 {
     public class DbConfiguration
     {

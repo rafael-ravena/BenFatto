@@ -1,4 +1,49 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿$(document).ready(function () {
+    $("[data-behavior~=\"menu-toggle\"]").on("click", function () {
+        $("body").toggleClass("menu-expanded");
+    });
+    $("input[type=\"submit\"]").on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var form = $(this).closest("form");
+        form.find("input,button,select").removeAttr("disabled");
+        form.submit();
+    });
+    $("a[data-behavior~=\"display-modal\"]").on("click", function (e) {
+        $("#ModalDetailTitle").html($(this).attr("data-arg"));
+        $("#ModalDetailContent").load($(this).attr("href"));
+    });
+    $("[data-behavior=\"navigate-page\"]").on("click", function () {
+        $("#page").val(parseInt($("#page").val()) + parseInt($(this).attr("data-arg")));
+        if (parseInt($("#page").val()) < 0) {
+            $("#page").val(0);
+            return;
+        }
+        $("#page").closest("form").submit();
+    });
+    $("[data-behavior~=\"confirm-delete\"]").on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $("#ConfirmDeleteModalTitle").html($(this).attr("data-arg"));
+        $("#ConfirmDelete").attr("href", $(this).attr("href"));
+        $('#ConfirmDeleteModal').modal('show').on("hide.bs.modal", function () {
+            $("[data-behavior~=\"clear-delete-modal\"]").click();
+        });
+        $('#ConfirmDeleteModalBody').load($($(this).attr("data-target")).attr("href"));
+    });
+    $("[data-behavior~=\"clear-delete-modal\"]").on("click", function (e) {
+        $("#ConfirmDeleteModalBody").html("");
+        $("#ConfirmDeleteModalTitle").html("");
+        $("#ConfirmDelete").attr("href", "");
+    });
+    $("[data-behavior~=\"edit-element\"]").on("click", function (e) {
+        $("#ModalDetailTitle").html($(this).attr("data-arg"));
+        var href = $(this).attr("href");
+        $("#ModalDetailContent").load($(this).attr("href"), function (data) {
+            $("#EditElementForm").attr("action", href);
+            console.log($(this));
+            console.log(href);
+            console.log($("#EditElementForm").attr("action"));
+        });
+    });
+});

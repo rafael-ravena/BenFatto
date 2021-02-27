@@ -10,7 +10,7 @@ namespace BenFatto.CLF.Controllers
     [ApiController]
     public class ImportsController : ControllerBase
     {
-        [HttpGet("success/error/fileName/when")]
+        [HttpGet("filter/")]
         public IEnumerable<Model.Import> Filter(int success, int error, string fileName, DateTime when)
         {
             //Model.Import.When

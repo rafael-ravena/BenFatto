@@ -1,71 +1,120 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+﻿body, * {
+    font-family: 'Open Sans', sans-serif;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    font-size: 12px;
+    max-width: calc(100% - 10px);
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+    body.menu-expanded {
+        padding-left: 255px;
+    }
+
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+#MenuContainer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    float: left;
+    background-color: #efefff;
+    width: 0px;
+    z-index: 999;
+}
+
+body.menu-expanded #MenuContainer {
+    width: 250px;
+}
+
+#MenuCollapse {
+    float: left;
+}
+
+#Menu {
+    width: 250px;
+    position: relative;
+    z-index: 901;
+}
+
+.menu-btn {
+    position: absolute;
+    right: -20px;
+    top: 1px;
+    font-size: 10px;
+    width: 25px;
+    padding: 4px 7px;
+    border: 1px solid rgba(192,192,192,.3);
+    background-color: rgba(255,255,255,.3);
+    color: rgba(64,64,64,.3);
+    z-index: 900;
+}
+
+    .menu-btn:hover {
+        color: #333;
+        border: 1px solid #ccc;
+        background-color: #ffffff;
+    }
+
+#Menu li.list-item {
+    background-color: #428bca;
+    color: #ebebeb;
+}
+
+    #Menu li.list-item a {
+        font-family: 'Pathway Gothic One', sans-serif;
+        text-transform: uppercase;
+        font-size: 1.5em;
+        color: #ebebeb;
+        width: 100%;
+        display: inline-block;
+        padding: 5px;
+    }
+
+        #Menu li.list-item a:hover {
+            text-decoration: none;
+            padding-left: 10px;
+        }
+
+#Menu li.menu-separator {
+    height: 2px;
+    background-color: #ebebeb;
+}
+
+.table tr {
+    background-color: #fcfcfc;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f0f3ff;
+}
+.body-content {
+    padding: 0px 15px;
+}
+
+.row:first-child {
+    margin-top: .5rem;
+}
+
+.row:not(:first-child) {
+    margin-top: 1rem;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+}
+
+.action-btn {
+    width: 100px;
+}
+
+.deleted * {
+    color: #dfdfdf;
 }

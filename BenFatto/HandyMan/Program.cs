@@ -38,7 +38,7 @@ namespace HandyMan
                         HelpMe();
                         break;
                     case "post":
-                        TestFilePostAsync();
+                        //TestFilePostAsync();
                         break;
                     default:
                         Instructions();
@@ -76,7 +76,7 @@ namespace HandyMan
             BenFatto.CLF.Service.FileProcessor processor = new BenFatto.CLF.Service.FileProcessor(file, 0);
             using (ClfContext context = new ClfContext())
                 processor.ProcessFile(context);
-            WriteOut($"File imported successfuly: {file} at {DateTime.Now.ToString(BenFatto.CLF.AppSettings.Current.DateFormat, BenFatto.CLF.AppSettings.Current.CultureInfo)}");
+            WriteOut($"File imported successfuly: {file} at {DateTime.Now.ToString(BenFatto.CLF.ClfAppSettings.Current.DateFormat, BenFatto.CLF.ClfAppSettings.Current.CultureInfo)}");
         }
 
         private static string GenerateFile()
@@ -110,7 +110,7 @@ namespace HandyMan
                     string line = $"{random.Next(1, 256)}.{random.Next(0, 256)}.{random.Next(0, 256)}.{random.Next(0, 256)} ";
                     line += $"{RfcIds[random.Next(0, RfcIds.Length)]} ";
                     line += $"{Users[random.Next(0, Users.Length)]} ";
-                    line += $"[{DateTime.Now.AddMilliseconds(random.Next((int)-10368e5, (int)10368e5)).ToString(BenFatto.CLF.AppSettings.Current.DateFormat, BenFatto.CLF.AppSettings.Current.CultureInfo)} {(random.Next(1, 12) * 100).ToTimeZoneString()}] ";
+                    line += $"[{DateTime.Now.AddMilliseconds(random.Next((int)-10368e5, (int)10368e5)).ToString(BenFatto.CLF.ClfAppSettings.Current.DateFormat, BenFatto.CLF.ClfAppSettings.Current.CultureInfo)} {(random.Next(1, 12) * 100).ToTimeZoneString()}] ";
                     line += $"\"{Methods[random.Next(0, Methods.Length)]} ";
                     line += $"{Resources[random.Next(0, Resources.Length)]} ";
                     line += $"{Protocols[random.Next(0, Protocols.Length)]}\" ";
@@ -133,8 +133,8 @@ namespace HandyMan
         private static void TestSettingsReader()
         {
             WriteOut(BenFatto.CLF.DbConfiguration.Current.ConnectionString);
-            WriteOut(BenFatto.CLF.AppSettings.Current.BatchSize.ToString());
-            WriteOut(BenFatto.CLF.AppSettings.Current.AutoFlush.ToString());
+            WriteOut(BenFatto.CLF.ClfAppSettings.Current.BatchSize.ToString());
+            WriteOut(BenFatto.CLF.ClfAppSettings.Current.AutoFlush.ToString());
         }
 
         private static void HelpMe()

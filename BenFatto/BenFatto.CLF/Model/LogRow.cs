@@ -12,26 +12,21 @@ namespace BenFatto.CLF.Model
     {
         public long Id { get; set; }
         public long ImportId { get; set; }
-        [Description("IP Address")]
         public string IpAddress { get; set; }
-        [Description("RFC ID")]
         public string RfcId { get; set; }
-        [Description("User ID")]
         public string UserId { get; set; }
         public DateTime Date { get; set; }
         public short TimeZone { get; set; }
         [NotMapped]
-        [Description("Date (UTF)")]
         public string DateTimeUtfWithTimeZone
         {
             get
             {
-                return Date.FormateTimeZone(TimeZone, AppSettings.Current.CultureInfo, AppSettings.Current.DateFormat);
+                return Date.FormateTimeZone(TimeZone, ClfAppSettings.Current.CultureInfo, ClfAppSettings.Current.DateFormat);
             }
         }
         public short Method { get; set; }
         [NotMapped]
-        [Description("HTTP Method")]
         public LogRowMethod MethodName
         {
             get
@@ -43,15 +38,11 @@ namespace BenFatto.CLF.Model
                 Method = (short)value;
             }
         }
-        [Description("Requested Resource")]
         public string Resource { get; set; }
-        [Description("Request Protocol")]
         public string Protocol { get; set; }
-        [Description("HTTP Response Code")]
         public short ResponseCode { get; set; }
         public long ResponseSize { get; set; }
         [NotMapped]
-        [Description("Response Size (bytes)")]
         public string ResponseSizeString
         {
             get
@@ -62,13 +53,9 @@ namespace BenFatto.CLF.Model
                     return ResponseSize.ToString();
             }
         }
-        [Description("Referer")]
         public string Referer { get; set; }
-        [Description("User Agent")]
         public string UserAgent { get; set; }
-        [Description("Original Line")]
         public string OriginalLine { get; set; }
-        [Description("Row number in original file")]
         public int RowNumber { get; set; }
         public virtual Import Import { get; set; }
 
@@ -102,7 +89,7 @@ namespace BenFatto.CLF.Model
 
             //get Date from line: from new start to next occurrence of whitespace
             //then remove value from line to keep parsing
-            logRow.Date = DateTime.ParseExact(Helper.GetChunk(ref lineText, ' '), AppSettings.Current.DateFormat, AppSettings.Current.CultureInfo);
+            logRow.Date = DateTime.ParseExact(Helper.GetChunk(ref lineText, ' '), ClfAppSettings.Current.DateFormat, ClfAppSettings.Current.CultureInfo);
 
             //get UTC from line: from new start to next occurrence of trailing braces
             //then remove value from line to keep parsing

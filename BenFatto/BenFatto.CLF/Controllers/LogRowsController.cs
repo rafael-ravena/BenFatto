@@ -12,7 +12,7 @@ namespace BenFatto.CLF.Controllers
     [ApiController]
     public class LogRowsController : ControllerBase
     {
-        [HttpGet("importId/ipAddress/responseCode/when/userAgent/method/page/size")]
+        [HttpGet("filter/page/size/")]
         public IEnumerable<Model.LogRow> Get(long importId, string ipAddress, short responseCode, DateTime when, string userAgent, string method, int page, int size)
         {
             //Model.LogRow.ImportId
@@ -34,12 +34,12 @@ namespace BenFatto.CLF.Controllers
                 logRow.SetMethodByName(method);
             return new Service.LogRowService(context).Filter(logRow, page, size);
         }
-        [HttpGet("importId/ipAddress/responseCode/when/userAgent/method/page")]
+        [HttpGet("filter/page/")]
         public IEnumerable<Model.LogRow> Get(long importId, string ipAddress, short responseCode, DateTime when, string userAgent, string method, int page)
         {
-            return Get(importId, ipAddress, responseCode, when, userAgent, method, page, AppSettings.Current.PageSize);
+            return Get(importId, ipAddress, responseCode, when, userAgent, method, page, ClfAppSettings.Current.PageSize);
         }
-        [HttpGet("importId/ipAddress/responseCode/when/userAgent/method/")]
+        [HttpGet("filter/")]
         public IEnumerable<Model.LogRow> Get(long importId, string ipAddress, short responseCode, DateTime when, string userAgent, string method)
         {
             return Get(importId, ipAddress, responseCode, when, userAgent, method, 0);

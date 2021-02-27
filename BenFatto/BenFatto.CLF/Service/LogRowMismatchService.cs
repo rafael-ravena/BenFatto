@@ -17,7 +17,7 @@ namespace BenFatto.CLF.Service
         }
         public IEnumerable<LogRowMismatch> Filter(LogRowMismatch entity, int page)
         {
-            return Filter(entity, page, AppSettings.Current.PageSize);
+            return Filter(entity, page, ClfAppSettings.Current.PageSize);
         }
         public IEnumerable<LogRowMismatch> Filter(LogRowMismatch entity, int page, int size)
         {
@@ -38,7 +38,7 @@ namespace BenFatto.CLF.Service
             if (null == LogRowMismatches)
                 LogRowMismatches = new List<LogRowMismatch>();
             LogRowMismatches.Add(entity);
-            if (LogRowMismatches.Count >= AppSettings.Current.BatchSize && AppSettings.Current.AutoFlush)
+            if (LogRowMismatches.Count >= ClfAppSettings.Current.BatchSize && ClfAppSettings.Current.AutoFlush)
                 Flush();
         }
         public void Flush()

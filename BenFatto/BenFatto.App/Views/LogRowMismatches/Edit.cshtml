@@ -1,0 +1,48 @@
+﻿@model BenFatto.App.DTO.LogRowMismatch
+@{
+    Layout = null;
+}
+<h3>Correct the line text and we will try parsing it!</h3>
+<div class="row">
+    <div class="col">
+        <form method="post" id="EditElementForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" readonly="readonly" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ImportId" class="control-label"></label>
+                <input asp-for="ImportId" class="form-control" readonly="readonly" />
+            </div>
+            <div class="form-group">
+                <label asp-for="OriginalRowNumber" class="control-label"></label>
+                <input asp-for="OriginalRowNumber" class="form-control" readonly="readonly" />
+            </div>
+            <div class="form-group">
+                <label asp-for="RowNumber" class="control-label"></label>
+                <input asp-for="RowNumber" class="form-control" readonly="readonly" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Row" class="control-label"></label>
+                <input asp-for="Row" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ThrownException" class="control-label"></label>
+                <input asp-for="ThrownException" class="form-control" readonly="readonly" />
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    @Html.DisplayNameFor(model => model.Corrected)
+                    <span class="fa fa-@(Model.Corrected ? "check text-success" : "bug text-danger")"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <input asp-for="CorrectedAt" class="form-control" type="hidden" value="@(DateTime.Now)" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

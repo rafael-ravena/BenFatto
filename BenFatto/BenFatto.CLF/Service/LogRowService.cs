@@ -17,7 +17,7 @@ namespace BenFatto.CLF.Service
         }
         internal IEnumerable<LogRow> Filter(LogRow entity, int page)
         {
-            return Filter(entity, page, AppSettings.Current.PageSize);
+            return Filter(entity, page, ClfAppSettings.Current.PageSize);
         }
         internal IEnumerable<LogRow> Filter(LogRow entity, int page, int size)
         {
@@ -44,7 +44,7 @@ namespace BenFatto.CLF.Service
             if (null == LogRows)
                 LogRows = new List<LogRow>();
             LogRows.Add(entity);
-            if (LogRows.Count >= AppSettings.Current.BatchSize && AppSettings.Current.AutoFlush)
+            if (LogRows.Count >= ClfAppSettings.Current.BatchSize && ClfAppSettings.Current.AutoFlush)
                 Flush();
         }
         public void Flush()

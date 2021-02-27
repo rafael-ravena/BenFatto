@@ -9,8 +9,7 @@ namespace BenFatto.CLF.Model
     public partial class ClfContext : DbContext
     {
         public readonly string cnStr;
-        public ClfContext()
-            : base()
+        public ClfContext() : base()
         {
             cnStr = DbConfiguration.Current.ConnectionString;
         }

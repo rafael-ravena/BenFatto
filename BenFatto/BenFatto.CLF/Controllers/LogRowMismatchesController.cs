@@ -11,15 +11,9 @@ namespace BenFatto.CLF.Controllers
     [ApiController]
     public class LogRowMismatchesController : ControllerBase
     {
-        [HttpGet("importId/exception/row/page/size/")]
+        [HttpGet("filter/page/size/")]
         public IEnumerable<Model.LogRowMismatch> Get(long importId, string exception, string row, int page, int size)
         {
-            //Model.LogRowMismatch.ImportId
-            //Model.LogRowMismatch.IpAddress
-            //Model.LogRowMismatch.ResponseCode
-            //Model.LogRowMismatch.Date
-            //Model.LogRowMismatch.UserAgent
-            //Model.LogRowMismatch.Method
             Model.ClfContext context = new Model.ClfContext();
             Model.LogRowMismatch logRowMismatch = new Model.LogRowMismatch
             {
@@ -29,12 +23,12 @@ namespace BenFatto.CLF.Controllers
             };
             return new Service.LogRowMismatchService(context).Filter(logRowMismatch, page, size);
         }
-        [HttpGet("importId/exception/row/page/")]
+        [HttpGet("filter/page/")]
         public IEnumerable<Model.LogRowMismatch> Get(long importId, string exception, string row, int page)
         {
-            return Get(importId, exception, row, page, AppSettings.Current.PageSize);
+            return Get(importId, exception, row, page, ClfAppSettings.Current.PageSize);
         }
-        [HttpGet("importId/exception/row/")]
+        [HttpGet("filter/")]
         public IEnumerable<Model.LogRowMismatch> Get(long importId, string exception, string row)
         {
             return Get(importId, exception, row, 0);

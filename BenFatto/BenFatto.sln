@@ -13,7 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenFatto.CharSeparated", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenFatto.FixedLenght", "BenFatto.FixedLenght\BenFatto.FixedLenght.csproj", "{3D1FDB0F-8E50-49FA-ACF7-9E20E3BE4612}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenFatto.App", "BenFatto.App\BenFatto.App.csproj", "{A1E2071F-E065-4BA8-A1D2-896E7040EB16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenFatto.App", "BenFatto.App\BenFatto.App.csproj", "{A1E2071F-E065-4BA8-A1D2-896E7040EB16}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1E3F23C-9BB9-4733-B9D7-5567DF327088} = {A1E3F23C-9BB9-4733-B9D7-5567DF327088}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
