@@ -15,7 +15,7 @@ namespace BenFatto.CLF.Service
         {
             Context = context;
         }
-        public void InsertOrUpdate(TEntity entity)
+        public virtual void InsertOrUpdate(TEntity entity)
         {
             Context.Entry(entity).State = entity.Id == 0 ? EntityState.Added : EntityState.Modified;
             Context.SaveChanges();

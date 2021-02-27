@@ -13,7 +13,7 @@ namespace BenFatto.App.DTO
         public string RfcId { get; set; }
         [DisplayName("User ID")]
         public string UserId { get; set; }
-        [DisplayName("HTTP Method")]
+        [DisplayName("Date")]
         public DateTime Date { get; set; }
         [DisplayName("UTC Time zone")]
         public short TimeZone { get; set; }

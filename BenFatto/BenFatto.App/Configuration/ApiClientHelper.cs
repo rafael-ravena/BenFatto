@@ -33,7 +33,7 @@ namespace BenFatto.App
                 //curl - X POST "https://localhost:44376/api/LogRowMismatches" - H  "accept: */*" - H  "Content-Type: text/json"
                 client.DefaultRequestHeaders.Add("accept", "*/*");
                 client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
-                StringContent content = new StringContent(JsonConvert.SerializeObject(jsonData), Encoding.UTF8, "application/json");
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 using (HttpResponseMessage httpResponse = await client.PostAsync(url, content)) 
                     responseData = await httpResponse.Content.ReadAsStringAsync();
             }
@@ -73,6 +73,27 @@ namespace BenFatto.App
             get
             {
                 return $"{SettingsManager.Current.BaseUrl}{SettingsManager.Current.LogRowMismatches}";
+            }
+        }
+        public static string LogRowFilter
+        {
+            get
+            {
+                return $"{LogRowUrl}{SettingsManager.Current.Filter}";
+            }
+        }
+        public static string LogRowUrl
+        {
+            get
+            {
+                return $"{SettingsManager.Current.BaseUrl}{SettingsManager.Current.LogRows}";
+            }
+        }
+        public static string UserAgentsUrl
+        {
+            get
+            {
+                return $"{SettingsManager.Current.BaseUrl}{SettingsManager.Current.UserAgents}";
             }
         }
     }

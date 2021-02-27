@@ -3,6 +3,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="row">
+                <input type="hidden" name="importId" value="@(Context.Request.Query["importId"])"/>
                 <label asp-for="ThrownException" class="col-form-label col-md-3 text-right"></label>
                 <div class="col"><input asp-for="ThrownException" class="form-control" /></div>
             </div>

@@ -26,12 +26,10 @@
         e.stopPropagation();
         $("#ConfirmDeleteModalTitle").html($(this).attr("data-arg"));
         $("#ConfirmDelete").attr("href", $(this).attr("href"));
-        $('#ConfirmDeleteModal').modal('show').on("hide.bs.modal", function () {
-            $("[data-behavior~=\"clear-delete-modal\"]").click();
-        });
+        $('#ConfirmDeleteModal').modal('show');
         $('#ConfirmDeleteModalBody').load($($(this).attr("data-target")).attr("href"));
     });
-    $("[data-behavior~=\"clear-delete-modal\"]").on("click", function (e) {
+    $("[data-behavior~=\"clear-delete-modal\"]").on("click", function () {
         $("#ConfirmDeleteModalBody").html("");
         $("#ConfirmDeleteModalTitle").html("");
         $("#ConfirmDelete").attr("href", "");
@@ -41,9 +39,7 @@
         var href = $(this).attr("href");
         $("#ModalDetailContent").load($(this).attr("href"), function (data) {
             $("#EditElementForm").attr("action", href);
-            console.log($(this));
-            console.log(href);
-            console.log($("#EditElementForm").attr("action"));
         });
     });
 });
+

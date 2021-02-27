@@ -32,6 +32,20 @@ namespace BenFatto.CLF.Service
         {
             return Context.LogRowMismatches.FirstOrDefault(e => e.Id == entityId);
         }
+        public override void InsertOrUpdate(LogRowMismatch entity)
+        {
+            if (0 != entity.Id)
+            {
+                LogRow corrected = entity.TryConvert();
+                if(null != corrected)
+                {
+                    new LogRowService(Context).InsertOrUpdate(corrected);
+                    entity.Corrected = true;
+                    entity.CorrectedAt = DateTime.Now;
+                }
+            }
+            base.InsertOrUpdate(entity);
+        }
         List<Model.LogRowMismatch> LogRowMismatches { get; set; }
         public void InsertCollection(Model.LogRowMismatch entity)
         {

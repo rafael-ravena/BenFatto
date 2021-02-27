@@ -1,0 +1,58 @@
+﻿@model BenFatto.App.DTO.LogRow
+@*
+    $"ipAddress={HttpUtility.UrlEncode(entity.IpAddress)}",
+    $"responseCode={HttpUtility.UrlEncode(entity.ResponseCode.ToString())}",
+    $"when={HttpUtility.UrlEncode(entity.Date.ToString())}",
+    $"userAgent={HttpUtility.UrlEncode(entity.UserAgent)}",
+    $"method={HttpUtility.UrlEncode(entity.Method.ToString())}",
+*@
+
+<form asp-action="Index" method="get">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <input type="hidden" name="importId" value="@(Context.Request.Query["importId"])"/>
+                <label asp-for="IpAddress" class="col-form-label col-md-3 text-right"></label>
+                <div class="col"><input asp-for="IpAddress" class="form-control" /></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <label asp-for="ResponseCode" class="col-form-label col-md-3 text-right"></label>
+                <div class="col"><input asp-for="ResponseCode" class="form-control" /></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <label asp-for="Date" class="col-form-label col-md-3 text-right"></label>
+                <div class="col"><input asp-for="Date" class="form-control" /></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <label asp-for="UserAgent" class="col-form-label col-md-3 text-right"></label>
+                <div class="col"><select asp-for="UserAgent" asp-items="@ViewBag.UserAgents" class="form-control"></select></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <label asp-for="Method" class="col-form-label col-md-3 text-right"></label>
+                <div class="col"><select asp-for="Method" asp-items="@ViewBag.Methods" class="form-control"></select></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <input type="hidden" name="page" id="page" value="@(Context.Request.Query["page"])" />
+
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Create" asp-route-importId="@(Context.Request.Query["importId"])" class="btn btn-info"
+               title="Add Row manually!" data-toggle="modal" data-target="#ModalDetail"
+               data-behavior="edit-element" data-arg="Row with error">
+                <i class="fa fa-fw fa-plus"></i> Add Row manually
+            </a>
+        </div>
+    </div>
+</form>

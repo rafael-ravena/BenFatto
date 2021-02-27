@@ -37,7 +37,7 @@ namespace BenFatto.CLF
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ben Fatto Rafael Ravena's Programming Test", Version = "v1" });
             });
             services.AddControllers().AddNewtonsoftJson(options => {
-                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.All;
+                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
             });
         }
 

@@ -12,7 +12,7 @@ namespace BenFatto.CLF.Service
         public override IEnumerable<Import> Filter(Import entity)
         {
             return Context.Imports.Where(e =>
-                ((e.When >= entity.When.BeginningOfDay() && e.When < entity.When.NextDay()) || DateTime.MinValue == entity.When) &&
+                ((e.When >= entity.When.BeginningOfDay() && e.When < entity.When.NextDay()) || DateTime.MinValue.BeginningOfDay() == entity.When.BeginningOfDay()) &&
                 (e.SuccessCount > 0 || 0 == entity.SuccessCount) &&
                 (e.ErrorCount > 0 || 0 == entity.ErrorCount) &&
                 (string.IsNullOrEmpty(entity.FileName) || e.FileName.Contains(entity.FileName))

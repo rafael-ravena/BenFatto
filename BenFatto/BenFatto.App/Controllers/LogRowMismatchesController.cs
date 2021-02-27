@@ -9,12 +9,12 @@ namespace BenFatto.App.Controllers
     public class LogRowMismatchesController : Controller
     {
         // GET: LogRowMismatches
-        public async Task<IActionResult> Index(DTO.LogRowMismatch entity = null, int page = 0)
+        public async Task<IActionResult> Index(DTO.LogRowMismatch entity = null, long importId = 0, int page = 0)
         {
             if (null == entity)
                 entity = new DTO.LogRowMismatch();
             string[] data = {
-                    $"importId={HttpUtility.UrlEncode(entity.ImportId.ToString())}",
+                    $"importId={HttpUtility.UrlEncode(importId.ToString())}",
                     $"exception={HttpUtility.UrlEncode(entity.ThrownException)}",
                     $"row={HttpUtility.UrlEncode(entity.Row)}",
                     $"page={HttpUtility.UrlEncode(page.ToString())}"
@@ -23,7 +23,7 @@ namespace BenFatto.App.Controllers
             return View(JsonConvert.DeserializeObject<List<DTO.LogRowMismatch>>(responseData));
         }
         // GET: LogRowMismatches/Detail/5
-        public async Task<IActionResult> Detail(long? id)
+        public async Task<IActionResult> Detail(long? id, long importId, int page)
         {
             if (id == null)
                 return NotFound();
@@ -44,7 +44,7 @@ namespace BenFatto.App.Controllers
                 return NotFound();
             return View(row);
         }
-        // GET: LogRowMismatches/Detail/5
+        // POST: LogRowMismatches/Edit/5?importId={0}&page={1}
         [HttpPost]
         public async Task<IActionResult> Edit(long importId, int page, [FromForm] DTO.LogRowMismatch entity)
         {
@@ -55,7 +55,7 @@ namespace BenFatto.App.Controllers
             }));
             return RedirectToAction("index", new { importId = importId, page = page });
         }
-        // GET: LogRowMismatches/Detail/5
+        // GET: LogRowMismatches/Delete/5?importId={0}&page={1}
         public async Task<IActionResult> Delete(long? id, long importId, int page)
         {
             if (id == null)

@@ -57,7 +57,7 @@
                                data-behavior="display-modal" data-arg="@(item.FileNameDisplay)">
                                 <i class="fa fa-fw fa-info-circle"></i>
                             </a>
-                            <a asp-controller="Imports" asp-action="Index" asp-route-importId="@item.Id" asp-route-page="0" class="btn btn-sm btn-outline-secondary" title="View imported lines">
+                            <a asp-controller="LogRows" asp-action="Index" asp-route-importId="@item.Id" asp-route-page="0" class="btn btn-sm btn-outline-secondary" title="View imported lines">
                                 <i class="fa fa-fw fa-file-archive-o"></i>
                             </a>
                             <a asp-controller="LogRowMismatches" asp-action="Index" asp-route-importId="@item.Id" asp-route-page="0" class="btn btn-sm btn-outline-danger" title="View Errors">

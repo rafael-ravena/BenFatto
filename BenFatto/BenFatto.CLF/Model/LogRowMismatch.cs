@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace BenFatto.CLF.Model
 {
     public partial class LogRowMismatch : IModelBase

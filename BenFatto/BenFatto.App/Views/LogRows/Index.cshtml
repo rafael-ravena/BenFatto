@@ -1,24 +1,36 @@
-﻿@model IEnumerable<BenFatto.App.DTO.LogRowMismatch>
+﻿@model IEnumerable<BenFatto.App.DTO.LogRow>
 @{
-    ViewData["Title"] = "Mismaches in file";
+    ViewData["Title"] = "Imported rows";
 }
-@await Html.PartialAsync("_Filter", new BenFatto.App.DTO.LogRowMismatch())
+@await Html.PartialAsync("_Filter", new BenFatto.App.DTO.LogRow())
 <div class="row">
     <div class="col">
         <table class="table">
             <thead>
                 <tr>
-                    <th width="10%">
-                        @Html.DisplayNameFor(model => model.OriginalRowNumber)
+                    <th width="5%">
+                        @Html.DisplayNameFor(model => model.Import.FileName)
                     </th>
-                    <th width="10%">
-                        @Html.DisplayNameFor(model => model.RowNumber)
+                    <th width="5%">
+                        @Html.DisplayNameFor(model => model.IpAddress)
                     </th>
-                    <th width="60%">
-                        @Html.DisplayNameFor(model => model.Row)
+                    <th width="5%">
+                        @Html.DisplayNameFor(model => model.RfcId)
                     </th>
-                    <th width="10%">
-                        @Html.DisplayNameFor(model => model.Corrected)
+                    <th width="5%">
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </th>
+                    <th width="5%">
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th width="5%">
+                        @Html.DisplayNameFor(model => model.Method)
+                    </th>
+                    <th width="5%">
+                        @Html.DisplayNameFor(model => model.ResponseCode)
+                    </th>
+                    <th width="50%">
+                        @Html.DisplayNameFor(model => model.UserAgent)
                     </th>
                     <th width="10%"></th>
                 </tr>
@@ -28,16 +40,28 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.OriginalRowNumber)
+                            @Html.DisplayFor(modelItem => item.Import.FileNameDisplay)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.RowNumber)
+                            @Html.DisplayFor(modelItem => item.IpAddress)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Row)
+                            @Html.DisplayFor(modelItem => item.RfcId)
                         </td>
-                        <td class="text-center">
-                            <span class="fa fa-@(item.Corrected ? "check text-success" : "bug text-danger")"></span>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Method)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ResponseCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserAgent)
                         </td>
                         <td>
                             <a asp-action="Detail" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
