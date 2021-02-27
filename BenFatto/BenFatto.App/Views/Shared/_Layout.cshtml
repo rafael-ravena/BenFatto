@@ -22,11 +22,13 @@
             <ul id="Menu" class="list-group">
                 <li class="list-item">@Html.ActionLink("Imported files", "Index", "Imports")</li>
                 <li class="menu-separator"> </li>
-                <li class="list-item">@Html.ActionLink("Users", "Index", "Users")</li>
-                <li class="menu-separator"> </li>
-                <li class="list-item">@Html.ActionLink("Profile", "Users", "Login", new { userId = 0 })</li>
-                <li class="menu-separator"> </li>
-                <li class="list-item">@Html.ActionLink("Logout", "Logout", "Login")</li>
+                @*
+                    <li class="list-item">@Html.ActionLink("Users", "Index", "Users")</li>
+                    <li class="menu-separator"> </li>
+                    <li class="list-item">@Html.ActionLink("Profile", "Users", "Login", new { userId = 0 })</li>
+                    <li class="menu-separator"> </li>
+                    <li class="list-item">@Html.ActionLink("Logout", "Logout", "Login")</li>
+                *@
             </ul>
         </div>
         <button type="button" class="btn menu-btn" data-behavior="menu-toggle" data-toggle="collapse" data-target="#MenuCollapse">
