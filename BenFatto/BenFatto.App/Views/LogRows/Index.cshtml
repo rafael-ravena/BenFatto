@@ -5,7 +5,7 @@
 @await Html.PartialAsync("_Filter", new BenFatto.App.DTO.LogRow())
 <div class="row">
     <div class="col">
-        <table class="table">
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th width="5%">
@@ -39,40 +39,40 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td width="5%">
                             @Html.DisplayFor(modelItem => item.Import.FileNameDisplay)
                         </td>
-                        <td>
+                        <td width="5%">
                             @Html.DisplayFor(modelItem => item.IpAddress)
                         </td>
-                        <td>
+                        <td width="5%">
                             @Html.DisplayFor(modelItem => item.RfcId)
                         </td>
-                        <td>
+                        <td width="5%">
                             @Html.DisplayFor(modelItem => item.UserId)
                         </td>
-                        <td>
+                        <td width="5%">
                             @Html.DisplayFor(modelItem => item.Date)
                         </td>
-                        <td>
+                        <td width="5%">
                             @Html.DisplayFor(modelItem => item.Method)
                         </td>
-                        <td>
+                        <td width="5%">
                             @Html.DisplayFor(modelItem => item.ResponseCode)
                         </td>
-                        <td>
+                        <td width="50%">
                             @Html.DisplayFor(modelItem => item.UserAgent)
                         </td>
-                        <td>
+                        <td width="10%" class="text-right">
                             <a asp-action="Detail" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
                                asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-success"
-                               title="View This Error Row Details!" data-toggle="modal" data-target="#ModalDetail"
+                               title="View This Error Row Details!" data-toggle="modal" data-target="#DetailModal"
                                data-behavior="display-modal" data-arg="Row with error" id="RowDetail@(item.Id)">
                                 <i class="fa fa-fw fa-info-circle"></i>
                             </a>
                             <a asp-action="Edit" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
                                asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-primary"
-                               title="Edit This Error Row!" data-toggle="modal" data-target="#ModalDetail"
+                               title="Edit This Error Row!" data-toggle="modal" data-target="#DetailModal"
                                data-behavior="edit-element" data-arg="Row with error" id="RowEdit@(item.Id)">
                                 <i class="fa fa-fw fa-edit"></i>
                             </a>

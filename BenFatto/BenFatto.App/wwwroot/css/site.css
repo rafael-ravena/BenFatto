@@ -5,6 +5,7 @@
 body {
     font-size: 12px;
     max-width: calc(100% - 10px);
+    padding-bottom: 20px;
 }
 
     body.menu-expanded {
@@ -88,9 +89,11 @@ body.menu-expanded #MenuContainer {
 .table tr {
     background-color: #fcfcfc;
 }
+
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #f0f3ff;
 }
+
 .body-content {
     padding: 0px 15px;
 }
@@ -109,12 +112,10 @@ footer {
     left: 0px;
     right: 0px;
     text-align: center;
+    height: 20px;
+    background-color: rgba(255,255,255,.8)
 }
 
 .action-btn {
-    width: 100px;
-}
-
-.deleted * {
-    color: #dfdfdf;
+    width: 250px;
 }

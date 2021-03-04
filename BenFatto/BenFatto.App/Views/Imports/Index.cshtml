@@ -33,27 +33,27 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td width="10%">
                             @Html.DisplayFor(modelItem => item.When)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FileName)
+                        <td width="25%">
+                            @Html.DisplayFor(modelItem => item.FileNameDisplay)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MismatchRowsFileName)
+                        <td width="25%">
+                            @Html.DisplayFor(modelItem => item.MismatchFileNameDisplay)
                         </td>
-                        <td>
+                        <td width="8%">
                             @Html.DisplayFor(modelItem => item.RowCount)
                         </td>
-                        <td>
+                        <td width="8%">
                             @Html.DisplayFor(modelItem => item.ErrorCount)
                         </td>
-                        <td>
+                        <td width="8%">
                             @Html.DisplayFor(modelItem => item.SuccessCount)
                         </td>
-                        <td>
+                        <td width="16%" class="text-right">
                             <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary"
-                               title="View details" data-toggle="modal" data-target="#ModalDetail"
+                               title="View details" data-toggle="modal" data-target="#DetailModal"
                                data-behavior="display-modal" data-arg="@(item.FileNameDisplay)">
                                 <i class="fa fa-fw fa-info-circle"></i>
                             </a>

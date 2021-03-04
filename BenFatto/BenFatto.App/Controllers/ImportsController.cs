@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace BenFatto.App.Controllers
 {
-    public class ImportsController : Controller
+    public class ImportsController : BaseController
     {
         // GET: Imports
         public async Task<IActionResult> Index(DTO.Import entity = null)
@@ -33,6 +34,25 @@ namespace BenFatto.App.Controllers
                 return NotFound();
             return View(import);
         }
+        // GET: Imports/Create
+        public IActionResult Create()
+        {
+            return View(new DTO.File());
+        }
+        // GET: Imports/Create
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm] DTO.File file)
+        {
+            byte[] content;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                file.LogFile.CopyTo(stream);
+                content = stream.ToArray();
+            }
+            await ApiClientHelper.ExecuteMultipartPostAsync($"{ApiClientHelper.FileUploadUrl}", content);
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

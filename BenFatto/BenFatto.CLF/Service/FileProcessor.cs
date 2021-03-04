@@ -10,12 +10,11 @@ namespace BenFatto.CLF.Service
     public class FileProcessor
     {
         private Import Import;
-        public FileProcessor(string fileName, int userId)
+        public FileProcessor(string fileName)
         {
             Import = new Import
             {
                 FileName = fileName,
-                UserId = userId,
                 When = DateTime.Now
             };
         }

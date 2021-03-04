@@ -9,6 +9,20 @@ namespace HandyMan
 {
     class Program
     {
+        static string _fileName;
+        private static string FileName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_fileName))
+                    _fileName = $"{Directory.GetCurrentDirectory()}\\{DateTime.Now.ToString("yyyyMMdd-hhmmss")}.log";
+                return _fileName;
+            }
+            set
+            {
+                _fileName = value;
+            }
+        }
         static void Main(string[] args)
         {
             Instructions();
@@ -34,29 +48,34 @@ namespace HandyMan
                         WriteOut("Enter the row to test and press enter!");
                         TestLogRowParse(Console.ReadLine());
                         break;
+                    case "setfile":
+                        WriteOut("Enter the file name to be generated!");
+                        FileName = Console.ReadLine();
+                        break;
                     case "help":
                         HelpMe();
                         break;
-                    case "post":
-                        //TestFilePostAsync();
-                        break;
                     default:
+                        WriteOut("Command not found!");
+                        HelpMe();
+                        WriteOut("");
                         Instructions();
                         break;
                 }
             }
         }
 
-        private static async System.Threading.Tasks.Task TestFilePostAsync()
+        private static void HelpMe()
         {
-            string file = GenerateFile();
-            string url = "https://localhost:44376/api/Files";
-            byte[] upload = File.ReadAllBytes(file);
-            var body = new { userId = 0, file = upload };
-            HttpContent content = new StringContent(JsonConvert.SerializeObject(body));
-            HttpClient client = new HttpClient();
-            var response = await client.PostAsync(url,  content);
-            WriteOut(response.Content.ToString());
+            WriteOut("type one of the following commands:");
+            WriteOut("\tIntParser: ParseInt characters");
+            WriteOut("\tSettings: read from appsettings");
+            WriteOut("\tCreateFile: Create a log file with valid and invalid bogus data");
+            WriteOut("\tFile: Imports 5 files with valid and invalid bogus data");
+            WriteOut("\tParse: convert LogFile row to object, then print it back.");
+            WriteOut("\t\t(to verify if the original row is equal to the generated one)");
+            WriteOut("\tSetFile: sets the logical path to generate file (in CreateFile)");
+            WriteOut("\tHelp: List available commands");
         }
 
         private static void Instructions()
@@ -73,7 +92,7 @@ namespace HandyMan
         private static void TestFileImporter()
         {
             string file = GenerateFile();
-            BenFatto.CLF.Service.FileProcessor processor = new BenFatto.CLF.Service.FileProcessor(file, 0);
+            BenFatto.CLF.Service.FileProcessor processor = new BenFatto.CLF.Service.FileProcessor(file);
             using (ClfContext context = new ClfContext())
                 processor.ProcessFile(context);
             WriteOut($"File imported successfuly: {file} at {DateTime.Now.ToString(BenFatto.CLF.ClfAppSettings.Current.DateFormat, BenFatto.CLF.ClfAppSettings.Current.CultureInfo)}");
@@ -99,10 +118,8 @@ namespace HandyMan
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36 Edge/44.19041.4788",
                 string.Empty };
 
-            string fileName = $"{Directory.GetCurrentDirectory()}\\{DateTime.Now.ToString("yyyyMMdd-hhmmss")}.log";
-
             Random random = new Random(int.Parse(DateTime.Now.ToString("hhmmssfff")));
-            using (StreamWriter stream = File.CreateText(fileName))
+            using (StreamWriter stream = File.CreateText(FileName))
             {
                 int count = 0;
                 for (int i = 0; i < random.Next((int)1e4, (int)1e5); i++)
@@ -127,7 +144,7 @@ namespace HandyMan
                     }
                 }
             }
-            return fileName;
+            return FileName;
         }
 
         private static void TestSettingsReader()
@@ -135,13 +152,6 @@ namespace HandyMan
             WriteOut(BenFatto.CLF.DbConfiguration.Current.ConnectionString);
             WriteOut(BenFatto.CLF.ClfAppSettings.Current.BatchSize.ToString());
             WriteOut(BenFatto.CLF.ClfAppSettings.Current.AutoFlush.ToString());
-        }
-
-        private static void HelpMe()
-        {
-            WriteOut("type one of the following commands:");
-            WriteOut("\tIntParser: ParseInt characters");
-            WriteOut("\tLogRow: convert LogFile row to object, then print it back");
         }
         static void CheckIntParser()
         {

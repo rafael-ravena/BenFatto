@@ -42,17 +42,15 @@
                 <div class="col"><select asp-for="Method" asp-items="@ViewBag.Methods" class="form-control"></select></div>
             </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col text-right">
             <input type="hidden" name="page" id="page" value="@(Context.Request.Query["page"])" />
 
-            <input type="submit" value="Search" class="btn btn-primary" />
             <a asp-action="Create" asp-route-importId="@(Context.Request.Query["importId"])" class="btn btn-info"
                title="Add Row manually!" data-toggle="modal" data-target="#ModalDetail"
                data-behavior="edit-element" data-arg="Row with error">
                 <i class="fa fa-fw fa-plus"></i> Add Row manually
             </a>
+            <input type="submit" value="Search" class="btn btn-primary" />
         </div>
     </div>
 </form>

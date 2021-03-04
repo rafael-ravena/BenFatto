@@ -21,7 +21,6 @@ namespace BenFatto.App.DTO
         public string FileName { get; set; }
         [DisplayName("Errors File")]
         public string MismatchRowsFileName { get; set; }
-        public int UserId { get; set; }
         [DisplayName("Rows in file")]
         public int RowCount { get; set; }
         [DisplayName("Errors found")]
@@ -36,6 +35,14 @@ namespace BenFatto.App.DTO
             get
             {
                 string[] parts = FileName.Split('\\');
+                return parts[parts.Length - 1];
+            }
+        }
+        public string MismatchFileNameDisplay
+        {
+            get
+            {
+                string[] parts = MismatchRowsFileName.Split('\\');
                 return parts[parts.Length - 1];
             }
         }

@@ -83,3 +83,4 @@
 - Implementar controle de usuários (acesso, gerenciamento) -> já está planejado e "projetado"
 - Implementar APIs de outros tipos de arquivos (fixed lenght / Char-separated)
 - Implementar telas de gerenciamento dos outros tipos de arquivo
+- Todos os forms de Edição, inclusão e exclusão enviados via ajax

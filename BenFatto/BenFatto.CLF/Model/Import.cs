@@ -19,7 +19,6 @@ namespace BenFatto.CLF.Model
         public DateTime When { get; set; }
         public string FileName { get; set; }
         public string MismatchRowsFileName { get; set; }
-        public int UserId { get; set; }
         public int RowCount { get; set; }
         public int ErrorCount { get; set; }
         public int SuccessCount { get; set; }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 
 namespace BenFatto
 {
@@ -37,6 +38,8 @@ namespace BenFatto
         public static string ToTimeZoneString(this int value)
         {
             string strValue = Math.Abs(value).ToString();
+            if (0 == value)
+                return "±0000";
             return $"{(value < 0 ? "-" : "+")}{strValue.PadLeft(4, '0')}";
         }
 

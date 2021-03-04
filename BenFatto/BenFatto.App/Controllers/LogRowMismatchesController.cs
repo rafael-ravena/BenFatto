@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BenFatto.App.Controllers
 {
-    public class LogRowMismatchesController : Controller
+    public class LogRowMismatchesController : BaseController
     {
         // GET: LogRowMismatches
         public async Task<IActionResult> Index(DTO.LogRowMismatch entity = null, long importId = 0, int page = 0)

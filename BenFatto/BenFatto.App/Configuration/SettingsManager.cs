@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,6 +10,7 @@ namespace BenFatto.App
 {
     public class SettingsManager
     {
+        private static List<SelectListItem> utcOffset;
         private static SettingsManager _settings;
         public SettingsManager(IConfiguration configuration)
         {
@@ -49,5 +51,22 @@ namespace BenFatto.App
         public string Filter { get; set; }
         public string FilterPage { get; set; }
         public string FilterPageSize { get; set; }
+        public List<SelectListItem> UtcOffsetRange
+        {
+            get
+            {
+                if (null == utcOffset)
+                {
+                    utcOffset = new List<SelectListItem>();
+                    for (int i = -12; i < 15; i++)
+                    {
+                        string utcValue = i.ToTimeZoneString();
+                        utcOffset.Add(new SelectListItem($"UTC {utcValue}", utcValue));
+                    }
+                }
+                return utcOffset;
+
+            }
+        }
     }
 }

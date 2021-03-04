@@ -49,8 +49,6 @@ namespace BenFatto.CLF.Model
 
                 entity.Property(e => e.SuccessCount).HasDefaultValueSql("0");
 
-                entity.Property(e => e.UserId).HasDefaultValueSql("0");
-
                 entity.Property(e => e.When).HasColumnType("date");
             });
 

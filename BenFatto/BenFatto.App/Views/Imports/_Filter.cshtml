@@ -4,20 +4,21 @@
         <div class="col-md-3">
             <div class="row">
                 <label asp-for="When" class="col-form-label col-md-3 text-right"></label>
-                <div class="col"><input asp-for="When" class="form-control" /></div>
+                <div class="col"><input asp-for="When" class="form-control" asp-format="{0:yyyy-MM-dd}" value="@(string.IsNullOrEmpty(Context.Request.Query["When"]) ? 
+                    DateTime.Now.ToString("yyyy-MM-ddTHH:mm") : DateTime.Parse(Context.Request.Query["When"]).ToString("yyyy-MM-ddTHH:mm"))" /></div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="row">
                 <label asp-for="FileName" class="col-form-label col-md-3 text-right"></label>
-                <div class="col"><input asp-for="FileName" class="form-control" /></div>
+                <div class="col"><input asp-for="FileName" value="@(Context.Request.Query["FileName"])" class="form-control" /></div>
             </div>
         </div>
         <div class="col-md-2">
             <div class="row">
                 <div class="col col-form-label">
                     <div class="form-check form-check-inline">
-                        <input name="ErrorCount" id="ErrorCount" class="form-check-input" type="checkbox" value="1" />
+                        <input name="ErrorCount" id="ErrorCount" class="form-check-input" type="checkbox" value="1" @("1" == Context.Request.Query["ErrorCount"] ? "checked=\"checked\"" : "") />
                         <label for="ErrorCount" class="form-check-label">@Html.DisplayNameFor(@model => model.ErrorCount)</label>
                     </div>
                 </div>
@@ -27,13 +28,18 @@
             <div class="row">
                 <div class="col col-form-label form-check">
                     <div class="form-check form-check-inline">
-                        <input name="SuccessCount" id="SuccessCount" class="form-check-input" type="checkbox" value="1" />
+                        <input name="SuccessCount" id="SuccessCount" class="form-check-input" type="checkbox" value="1" @("1" == Context.Request.Query["SuccessCount"] ? "checked=\"checked\"" : "") />
                         <label for="SuccessCount" class="form-check-label">@Html.DisplayNameFor(@model => model.SuccessCount)</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col text-right">
+            <a asp-action="Create" class="btn btn-info"
+               title="Import File!" data-toggle="modal" data-target="#DetailModal"
+               data-behavior="edit-element" data-arg="Row with error">
+                <i class="fa fa-fw fa-plus"></i> Import Log File
+            </a>
             <input type="submit" value="Search" class="btn btn-primary" />
         </div>
     </div>

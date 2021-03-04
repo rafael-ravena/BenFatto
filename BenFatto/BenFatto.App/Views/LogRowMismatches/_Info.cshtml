@@ -1,0 +1,68 @@
+﻿@model BenFatto.App.DTO.LogRowMismatch
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Id)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.Id)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.ImportId)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.ImportId)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.OriginalRowNumber)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.OriginalRowNumber)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.RowNumber)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.RowNumber)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Row)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.Row)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.ThrownException)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.ThrownException)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Corrected)
+    </div>
+    <div class="col">
+        <span class="fa fa-@(Model.Corrected ? "check text-success" : "bug text-danger")"></span>
+    </div>
+</div>
+@if (Model.Corrected)
+{
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(@model => model.CorrectedAt)
+        </div>
+        <div class="col">
+            @Html.DisplayFor(@model => @model.CorrectedAt)
+        </div>
+    </div>
+}

@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,9 +19,7 @@ namespace BenFatto.App
             using (HttpClient client = new HttpClient())
             {
                 using (HttpResponseMessage response = await client.GetAsync(url))
-                {
                     responseData = await response.Content.ReadAsStringAsync();
-                }
             }
             return responseData;
         }
@@ -30,11 +30,10 @@ namespace BenFatto.App
             {
                 client.BaseAddress = new Uri(url);
                 client.DefaultRequestHeaders.Clear();
-                //curl - X POST "https://localhost:44376/api/LogRowMismatches" - H  "accept: */*" - H  "Content-Type: text/json"
                 client.DefaultRequestHeaders.Add("accept", "*/*");
                 client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                using (HttpResponseMessage httpResponse = await client.PostAsync(url, content)) 
+                using (HttpResponseMessage httpResponse = await client.PostAsync(url, content))
                     responseData = await httpResponse.Content.ReadAsStringAsync();
             }
             return responseData;
@@ -46,7 +45,18 @@ namespace BenFatto.App
                 HttpResponseMessage response = await client.DeleteAsync(url);
             }
         }
-
+        public static async Task ExecuteMultipartPostAsync(string url, byte[] file)
+        {
+            using(HttpClient client = new HttpClient())
+            {
+                client.Timeout = TimeSpan.FromMinutes(10);
+                using (MultipartFormDataContent content = new MultipartFormDataContent())
+                {
+                    content.Add(new StreamContent(new MemoryStream(file)), "file", $"{DateTime.Now:yyyyMMdd-HHmmssfff}.log");
+                    HttpResponseMessage httpResponse = await client.PostAsync(url, content);
+                }
+            }
+        }
         public static string ImportsFilter
         {
             get
@@ -94,6 +104,13 @@ namespace BenFatto.App
             get
             {
                 return $"{SettingsManager.Current.BaseUrl}{SettingsManager.Current.UserAgents}";
+            }
+        }
+        public static string FileUploadUrl
+        {
+            get
+            {
+                return $"{SettingsManager.Current.BaseUrl}{SettingsManager.Current.Files}";
             }
         }
     }

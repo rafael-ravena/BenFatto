@@ -5,7 +5,7 @@
 @await Html.PartialAsync("_Filter", new BenFatto.App.DTO.LogRowMismatch())
 <div class="row">
     <div class="col">
-        <table class="table">
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th width="10%">
@@ -27,31 +27,34 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td width="10%">
                             @Html.DisplayFor(modelItem => item.OriginalRowNumber)
                         </td>
-                        <td>
+                        <td width="10%">
                             @Html.DisplayFor(modelItem => item.RowNumber)
                         </td>
-                        <td>
+                        <td width="60%">
                             @Html.DisplayFor(modelItem => item.Row)
                         </td>
-                        <td class="text-center">
+                        <td width="10%" class="text-center">
                             <span class="fa fa-@(item.Corrected ? "check text-success" : "bug text-danger")"></span>
                         </td>
-                        <td>
+                        <td width="10%" class="text-right">
                             <a asp-action="Detail" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
                                asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-success"
-                               title="View This Error Row Details!" data-toggle="modal" data-target="#ModalDetail"
+                               title="View This Error Row Details!" data-toggle="modal" data-target="#DetailModal"
                                data-behavior="display-modal" data-arg="Row with error" id="RowDetail@(item.Id)">
                                 <i class="fa fa-fw fa-info-circle"></i>
                             </a>
-                            <a asp-action="Edit" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
-                               asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-primary"
-                               title="Edit This Error Row!" data-toggle="modal" data-target="#ModalDetail"
-                               data-behavior="edit-element" data-arg="Row with error" id="RowEdit@(item.Id)">
-                                <i class="fa fa-fw fa-edit"></i>
-                            </a>
+                            @if (!item.Corrected)
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
+                                   asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-primary"
+                                   title="Edit This Error Row!" data-toggle="modal" data-target="#DetailModal"
+                                   data-behavior="edit-element" data-arg="Row with error" id="RowEdit@(item.Id)">
+                                    <i class="fa fa-fw fa-edit"></i>
+                                </a>
+                            }
                             <a asp-action="Delete" asp-route-Id="@item.Id" asp-route-importId="@item.ImportId"
                                asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-danger" title="Delete This Error Row?"
                                data-behavior="confirm-delete" data-arg="Delete Row With Error?" data-target="#RowDetail@(item.Id)">

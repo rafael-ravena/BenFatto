@@ -9,7 +9,7 @@ using System.Web;
 
 namespace BenFatto.App.Controllers
 {
-    public class LogRowsController : Controller
+    public class LogRowsController : BaseController
     {
         // GET: LogRowMismatches
         public async Task<IActionResult> Index(DTO.LogRow entity = null, long importId = 0, int page = 0)
@@ -46,6 +46,7 @@ namespace BenFatto.App.Controllers
                 new SelectListItem { Value = "3", Text="PATCH"},
                 new SelectListItem { Value = "4", Text="DELETE"}
             };
+            ViewBag.UtcOffsetRange = SettingsManager.Current.UtcOffsetRange;
             return View(new DTO.LogRow());
         }
     }

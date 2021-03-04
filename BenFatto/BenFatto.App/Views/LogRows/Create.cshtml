@@ -2,93 +2,141 @@
 @{
     Layout = null;
 }
-<div class="row">
-    <div class="col">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input name="Id" type="hidden" class="form-control" value="0" />
-                <input name="ImportId" type="hidden" class="form-control" value="@(Context.Request.Query["importId"])" />
-                <label asp-for="IpAddress" class="control-label"></label>
-                <input asp-for="IpAddress" class="form-control" />
-                <span asp-validation-for="IpAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RfcId" class="control-label"></label>
-                <input asp-for="RfcId" class="form-control" />
-                <span asp-validation-for="RfcId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeZone" class="control-label"></label>
-                <input asp-for="TimeZone" class="form-control" />
-                <span asp-validation-for="TimeZone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Method" class="control-label"></label>
-                <select asp-for="Method" asp-items="@ViewBag.Methods" class="form-control"></select>
-                <span asp-validation-for="Method" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Resource" class="control-label"></label>
-                <input asp-for="Resource" class="form-control" />
-                <span asp-validation-for="Resource" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Protocol" class="control-label"></label>
-                <input asp-for="Protocol" class="form-control" />
-                <span asp-validation-for="Protocol" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResponseCode" class="control-label"></label>
-                <input asp-for="ResponseCode" class="form-control" />
-                <span asp-validation-for="ResponseCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResponseSize" class="control-label"></label>
-                <input asp-for="ResponseSize" class="form-control" />
-                <span asp-validation-for="ResponseSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Referer" class="control-label"></label>
-                <input asp-for="Referer" class="form-control" />
-                <span asp-validation-for="Referer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserAgent" class="control-label"></label>
-                <input asp-for="UserAgent" class="form-control" />
-                <span asp-validation-for="UserAgent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OriginalLine" class="control-label"></label>
-                <input asp-for="OriginalLine" class="form-control" />
-                <span asp-validation-for="OriginalLine" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RowNumber" class="control-label"></label>
-                <input asp-for="RowNumber" class="form-control" />
-                <span asp-validation-for="RowNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Create" method="post">
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="OriginalLine" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input name="Id" type="hidden" class="form-control" value="0" />
+            <input name="ImportId" type="hidden" class="form-control" value="@(Context.Request.Query["importId"])" />
+            <input asp-for="OriginalLine" class="form-control" />
+            <span asp-validation-for="OriginalLine" class="text-danger"></span>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="IpAddress" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="IpAddress" class="form-control" />
+            <span asp-validation-for="IpAddress" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="RfcId" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="RfcId" class="form-control" />
+            <span asp-validation-for="RfcId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="Date" class="control-label"></label>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <input asp-for="Date" class="form-control" value="@(DateTime.Now)" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+                <div class="input-group-append">
+                    <select asp-for="TimeZone" asp-items="@ViewBag.UtcOffsetRange" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="TimeZone" class="control-label"></label>
+        </div>
+        <div class="col">
+            <span asp-validation-for="TimeZone" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="Method" class="control-label"></label>
+        </div>
+        <div class="col">
+            <select asp-for="Method" asp-items="@ViewBag.Methods" class="form-control"></select>
+            <span asp-validation-for="Method" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="Resource" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="Resource" class="form-control" />
+            <span asp-validation-for="Resource" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="Protocol" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="Protocol" class="form-control" />
+            <span asp-validation-for="Protocol" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="ResponseCode" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="ResponseCode" class="form-control" />
+            <span asp-validation-for="ResponseCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="ResponseSize" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="ResponseSize" class="form-control" />
+            <span asp-validation-for="ResponseSize" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="Referer" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="Referer" class="form-control" />
+            <span asp-validation-for="Referer" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="UserAgent" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="UserAgent" class="form-control" />
+            <span asp-validation-for="UserAgent" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="RowNumber" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="RowNumber" class="form-control" />
+            <span asp-validation-for="RowNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button type="button" class="btn btn-primary action-btn" data-dismiss="modal">
+                <i class="fa fa-fw fa-times"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-info action-btn">
+                <i class="fa fa-fw fa-floppy-o"></i> Save
+            </button>
+        </div>
+    </div>
+</form>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
