@@ -11,6 +11,6 @@ namespace BenFatto.App.Model
         public int FunctionalityId { get; set; }
 
         public virtual Functionality Functionality { get; set; }
-        public virtual User User { get; set; }
+        public virtual BenFattoUser User { get; set; }
     }
 }

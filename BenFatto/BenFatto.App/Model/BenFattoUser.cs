@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace BenFatto.App.Model
 {
-    public partial class User
+    public partial class BenFattoUser
     {
-        public User()
+        public BenFattoUser()
         {
             UserFunctionalities = new HashSet<UserFunctionality>();
         }

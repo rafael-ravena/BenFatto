@@ -16,7 +16,7 @@ namespace BenFatto.App.Model
         }
 
         public virtual DbSet<Functionality> Functionalities { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<BenFattoUser> Users { get; set; }
         public virtual DbSet<UserFunctionality> UserFunctionalities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -43,7 +43,7 @@ namespace BenFatto.App.Model
                     .HasMaxLength(1024);
             });
 
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<BenFattoUser>(entity =>
             {
                 entity.Property(e => e.Email)
                     .IsRequired()
