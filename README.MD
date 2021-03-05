@@ -21,7 +21,7 @@ ___
     - Sem utilizar o MS-Identity:
         > O Uso de Session é muito comum para quem programa na plataforma MS por pelo menos 15 anos.
         > 
-        > Porém, o uso de Session em Net Core está atrelado ao controller, dificultando a implementação do Pattern Facade (ver [<sup>2 Bugs em Runtime para session e outros</sup>](#bugs-em-runtime)). Essa implementação ficou muito nebulosa, com configuração muito complicada, com entendimento complexo, apresentando muitos erros, e sem garantias de que conseguiria fazê-lo em tempo.
+        > Porém, o uso de Session em Net Core está atrelado ao controller, dificultando a implementação do Pattern Facade (ver [<sup>2 Bugs em Runtime para key/value pair</sup>](#bugs-em-runtime)). Essa implementação ficou muito nebulosa, com configuração muito complicada, com entendimento complexo, apresentando muitos erros, e sem garantias de que conseguiria fazê-lo em tempo.
         > 
         > Quando você cria um projeto web sem se preparar para utilizar o Identity, incluir depois é bem complicado e com muitos passos.
         > 
