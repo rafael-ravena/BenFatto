@@ -4,6 +4,7 @@ using System.IO;
 using BenFatto;
 using System.Net.Http;
 using Newtonsoft.Json;
+using BenFatto.App.Model;
 
 namespace HandyMan
 {
@@ -52,6 +53,9 @@ namespace HandyMan
                         WriteOut("Enter the file name to be generated!");
                         FileName = Console.ReadLine();
                         break;
+                    case "user":
+                        CreateDefaulUser();
+                        break;
                     case "help":
                         HelpMe();
                         break;
@@ -59,9 +63,9 @@ namespace HandyMan
                         WriteOut("Command not found!");
                         HelpMe();
                         WriteOut("");
-                        Instructions();
                         break;
                 }
+                Instructions();
             }
         }
 
@@ -70,12 +74,38 @@ namespace HandyMan
             WriteOut("type one of the following commands:");
             WriteOut("\tIntParser: ParseInt characters");
             WriteOut("\tSettings: read from appsettings");
+            WriteOut("\tUser: Create a valid User to operate the application");
             WriteOut("\tCreateFile: Create a log file with valid and invalid bogus data");
             WriteOut("\tFile: Imports 5 files with valid and invalid bogus data");
             WriteOut("\tParse: convert LogFile row to object, then print it back.");
             WriteOut("\t\t(to verify if the original row is equal to the generated one)");
             WriteOut("\tSetFile: sets the logical path to generate file (in CreateFile)");
             WriteOut("\tHelp: List available commands");
+        }
+
+        private static void CreateDefaulUser()
+        {
+            WriteOut("OK! Let's create a user!");
+            WriteOut("Enter \"#CANCEL!\" anytime to cancel this operation!");
+            WriteOut("Enter the new user's name (Name + Last Name)!");
+            string userName = Console.ReadLine();
+            if ("#CANCEL!" == userName)
+                return;
+            WriteOut($"Enter {userName}'s e-mail address!");
+            string email = Console.ReadLine();
+            if ("#CANCEL!" == email)
+                return;
+            WriteOut("Finally enter the password!");
+            string password = Console.ReadLine();
+            if ("#CANCEL!" == password)
+                return;
+            BenFattoUser usr = new BenFattoUser { Email = email, Name = userName, Password = password };
+            using (BenFattoAppContext context = new BenFattoAppContext())
+            {
+                context.Users.Add(usr);
+                context.SaveChanges();
+            }
+            WriteOut($"User successfuly created with Id: {usr.Id}");
         }
 
         private static void Instructions()

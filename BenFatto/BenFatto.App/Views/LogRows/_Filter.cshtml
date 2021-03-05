@@ -46,7 +46,7 @@
             <input type="hidden" name="page" id="page" value="@(Context.Request.Query["page"])" />
 
             <a asp-action="Create" asp-route-importId="@(Context.Request.Query["importId"])" class="btn btn-info"
-               title="Add Row manually!" data-toggle="modal" data-target="#ModalDetail"
+               title="Add Row manually!" data-toggle="modal" data-target="#DetailModal"
                data-behavior="edit-element" data-arg="Row with error">
                 <i class="fa fa-fw fa-plus"></i> Add Row manually
             </a>

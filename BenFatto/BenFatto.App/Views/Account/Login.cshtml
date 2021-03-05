@@ -1,0 +1,27 @@
+﻿@model BenFatto.App.Model.BenFattoUser
+@{
+    Layout = null;
+}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form method="post" asp-action="Login">
+            <div class="row">
+                <label asp-for="Email" class="col-form-label col-md-3 text-right"></label>
+                <div class="col">
+                    <input asp-for="Email" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <label asp-for="Password" class="col-form-label col-md-3 text-right"></label>
+                <div class="col">
+                    <input asp-for="Password" class="form-control" type="password" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-right">
+                    <button type="submit" class="btn btn-action btn-primary">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

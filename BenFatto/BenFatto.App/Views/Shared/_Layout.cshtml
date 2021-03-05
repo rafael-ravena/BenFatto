@@ -20,15 +20,53 @@
     <nav id="MenuContainer" class="menu-left">
         <div id="MenuCollapse" class="collapse show">
             <ul id="Menu" class="list-group">
-                <li class="list-item">@Html.ActionLink("Imported files", "Index", "Imports")</li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="list-item">
+                        <a asp-action="Edit" asp-controller="Account" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "Id").Value" title="Edit your data"
+                           data-toggle="modal" data-target="#DetailModal" data-behavior="display-modal">
+                            <i class="fa fa-fw fa-address-card-o"></i> @User.Identity.Name 
+                        </a>
+                    </li>
+                    <li class="menu-separator"> </li>
+                    <li class="list-item">
+                        <a asp-action="Index" asp-controller="Imports" title="Imported files data">
+                            <i class="fa fa-fw fa-file-text-o"></i> Imported files
+                        </a>
+                    </li>
+                    <li class="list-item">
+                        <a asp-action="Index" asp-controller="LogRows" title="Imported rows data">
+                            <i class="fa fa-fw fa-file-archive-o"></i> Imported lines
+                        </a>
+                    </li>
+                    <li class="list-item">
+                        <a asp-action="Index" asp-controller="LogRowMismatches" title="Imported rows with error data">
+                            <i class="fa fa-fw fa-exclamation-circle"></i> Error lines
+                        </a>
+                    </li>
+                    <li class="menu-separator"> </li>
+                    <li class="list-item">
+                        <a asp-action="Index" asp-controller="Account" title="Manage Users">
+                            <i class="fa fa-fw fa-users"></i> Users
+                        </a>
+                    </li>
+                    <li class="list-item">
+                        <a asp-action="Logout" asp-controller="Account" title="Logout from application"
+                           data-toggle="modal" data-target="#DetailModal" data-behavior="display-modal">
+                            <i class="fa fa-fw fa-user-times"></i> Logout
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="list-item">
+                        <a asp-action="Login" asp-controller="Account" title="Login to use the application"
+                           data-toggle="modal" data-target="#DetailModal" data-behavior="display-modal">
+                            <i class="fa fa-fw fa-user-circle"></i> Login
+                        </a>
+                    </li>
+                }
                 <li class="menu-separator"> </li>
-                @*
-                    <li class="list-item">@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li class="menu-separator"> </li>
-                    <li class="list-item">@Html.ActionLink("Profile", "Users", "Login", new { userId = 0 })</li>
-                    <li class="menu-separator"> </li>
-                    <li class="list-item">@Html.ActionLink("Logout", "Logout", "Login")</li>
-                *@
             </ul>
         </div>
         <button type="button" class="btn menu-btn" data-behavior="menu-toggle" data-toggle="collapse" data-target="#MenuCollapse">

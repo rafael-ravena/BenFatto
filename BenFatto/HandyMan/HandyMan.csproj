@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BenFatto.App\BenFatto.App.csproj" />
     <ProjectReference Include="..\BenFatto.CharSeparated\BenFatto.CharSeparated.csproj" />
     <ProjectReference Include="..\BenFatto.CLF\BenFatto.CLF.csproj" />
     <ProjectReference Include="..\BenFatto.Core\BenFatto.Core.csproj" />

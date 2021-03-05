@@ -20,7 +20,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenFatto.App", "BenFatto.Ap
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CEA6149-DCE0-405D-AB49-59B538F716A7}"
 	ProjectSection(SolutionItems) = preProject
+		..\SQL\Api-schema.sql = ..\SQL\Api-schema.sql
+		..\SQL\App-schema.sql = ..\SQL\App-schema.sql
 		..\README.MD = ..\README.MD
+		..\SQL\Users.sql = ..\SQL\Users.sql
 	EndProjectSection
 EndProject
 Global

@@ -1,0 +1,45 @@
+﻿@model BenFatto.App.Model.BenFattoUser
+@{
+    Layout = null;
+}
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="Name" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="Name" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="Email" class="control-label"></label>
+        </div>
+        <div class="col">
+            <input asp-for="Email" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="Password" class="control-label"></label>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <input asp-for="Password" type="password" class="form-control" readonly="readonly" value="@SettingsManager.Current.DefaultPassword" />
+                <div class="input-group-append">
+                    <span class="input-group-text">User will be created with default password</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button type="button" class="btn btn-primary action-btn" data-dismiss="modal">
+                <i class="fa fa-fw fa-times"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-info action-btn">
+                <i class="fa fa-fw fa-floppy-o"></i> Save
+            </button>
+        </div>
+    </div>
+</form>

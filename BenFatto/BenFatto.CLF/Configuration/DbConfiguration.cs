@@ -30,7 +30,7 @@ namespace BenFatto.CLF
         private static DbConfiguration GetCurrentSettings()
         {
             IConfigurationRoot configuration = Helper.GetConfiguration();
-            return new DbConfiguration(configuration.GetSection("DataBaseConfiguration"));
+            return new DbConfiguration(configuration.GetSection("ApiDataBaseConfiguration"));
         }
         public int Port { get; set; }
         public string Host { get; set; }

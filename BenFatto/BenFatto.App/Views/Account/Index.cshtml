@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BenFatto.App.Model.BenFattoUser>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col text-right">
+        <a asp-action="Create" class="btn btn-info"
+           title="Add new user" data-toggle="modal" data-target="#DetailModal"
+           data-behavior="edit-element" data-arg="Application User">
+            <i class="fa fa-fw fa-plus"></i> Add new user
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

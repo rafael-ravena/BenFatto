@@ -29,7 +29,7 @@ namespace BenFatto.App
         private static DbConfiguration GetCurrentSettings()
         {
             IConfigurationRoot configuration = Helper.GetConfiguration();
-            return new DbConfiguration(configuration.GetSection("DataBaseConfiguration"));
+            return new DbConfiguration(configuration.GetSection("AppDataBaseConfiguration"));
         }
         public int Port { get; set; }
         public string Host { get; set; }

@@ -25,6 +25,7 @@ namespace BenFatto.App
             Filter = configuration.GetValue<string>("Filter");
             FilterPage = configuration.GetValue<string>("FilterPage");
             FilterPageSize = configuration.GetValue<string>("FilterPageSize");
+            DefaultPassword = configuration.GetValue<string>("DefaultPassword");
         }
         public static SettingsManager Current
         {
@@ -51,6 +52,7 @@ namespace BenFatto.App
         public string Filter { get; set; }
         public string FilterPage { get; set; }
         public string FilterPageSize { get; set; }
+        public string DefaultPassword { get; set; }
         public List<SelectListItem> UtcOffsetRange
         {
             get
