@@ -6,7 +6,7 @@
 5. Facade
 6. Singleton
 7. Encapsulamento
-8. Reutilização de código
+8. Reutilização de código: extração de rotinas e Extension Methods
 9. Regras de legibilidade / manutenibilidade de código [<sup>1 Regras de programação segura</sup>](#safe-programming)
 
 ___
