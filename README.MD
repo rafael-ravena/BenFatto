@@ -3,10 +3,11 @@
 2. Micro Services
 3. N-tier
 4. Generics
-5. Singleton
-6. Encapsulamento
-7. Reutilização de código
-8. Regras de legibilidade / manutenibilidade de código
+5. Facade
+6. Singleton
+7. Encapsulamento
+8. Reutilização de código
+9. Regras de legibilidade / manutenibilidade de código
 
 ## Tecnologias / Linguagens / Ferramentas
 1. Asp.Net Core
@@ -15,9 +16,20 @@
 4. Razor
 5. Entity Framework
 6. PostgreSQL
+7. User registration 
+    - Sem utilizar o MS-Identity 
+        Quando você cria um projeto web sem se preparar para utilizar o Identity, incluir depois é bem complicado e com muitos passos
+        Ainda assim
+8. Bootstrap
+9. JQuery
+10. Font-awesome
+11. Toastr
 
 ## Manual:
 1. Criar users (superuser) / databases 
+
+### Users
+    - Execute o arquivo "/SQL/Users.sql"
 
 ### App database
 ```json
@@ -84,3 +96,7 @@
 - Implementar APIs de outros tipos de arquivos (fixed lenght / Char-separated)
 - Implementar telas de gerenciamento dos outros tipos de arquivo
 - Todos os forms de Edição, inclusão e exclusão enviados via ajax
+
+## Considerações
+- É bem complicado implementar Controle de Usuários com Session e o Design Pattern "Facade" (extraindo para uma classe que encapsula o controle das chaves da sessão), para evitar bugs em runtime.
+    - por exemplo, ao atribuir objeto à sessão "Cary",  geraria um NullReferenceException ao tentar utilizar o valor da sessão "Cart", uma vez que as chaves são diferentes. Identificar esse bug demanda muito tempo, muita atenção e uma grande familiaridade do dev com a implementação como um todo.
