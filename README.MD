@@ -9,6 +9,7 @@
 8. Reutilização de código
 9. Regras de legibilidade / manutenibilidade de código [<sup>1 Regras de programação segura</sup>](#safe-programming)
 
+___
 ## Tecnologias / Linguagens / Ferramentas
 1. Asp.Net Core
 2. Web Api (REST)
@@ -32,6 +33,7 @@
 10. Font-awesome
 11. Toastr
 
+___
 ## Manual:
 1. Criar users (superuser) / databases 
 
@@ -73,10 +75,14 @@
     4. Se desejar, acompanhe o processo por Debug
     5. Ao completar, uma mensagem será exibida, e 5 arquivos foram devidamente criados, importados (com linhas válidas e inválidas) e persistidos.
     6. Se desejar, repita a operação para alimentar o DB com mais massa de dados.
-4. Iniciar a aplicação
-5. Acesse o item "Files"
+4. Incluir um usuário no sistema
+    - Em uma instancia de "HandyMan" console application, digite o comando "User".
+    - Siga as instruções do programa.
+    - O Usuário de acesso ao sistema está criado e disponível para acessar a aplicação.
+5. Iniciar a aplicação
+6. Acesse o item "Files"
     - Cada linha representa um arquivo importado ("File").
-    - Não é possível  Incluir, Editar ou Excluir "Files" manualmente. 
+    - Não é possível  Editar ou Excluir "Files" manualmente. 
     - Novos "Files" são incluídos somente mediante Importação.
     - Aplique os filtros (não exclusivos mutuamente)
     - Ações:
@@ -97,8 +103,9 @@
                 - Inclua uma linha válida
                 - Inclua uma linha com inconsistência
 
+___
 ## Melhorias
-- Implementar OAuth para previnir DOS Attacks, Melhorar a segurança e restringir acesso
+- Implementar OAuth no API para previnir DOS Attacks, Melhorar a segurança e restringir acesso
 - Implementar as APIs de outros tipos de arquivos (fixed lenght / Char-separated)
 - Implementar telas de gerenciamento dos outros tipos de arquivo
 ___
@@ -116,7 +123,7 @@ Uma vez que você não consegue atribuir à uma constante, ou um readonly attrib
 string any = "";
 bool isTheSame = (string.empty = any); // a static readonly field cannot be assigned to
 ```
-####Preventing Exception Hell
+#### Preventing Exception Hell
 A utilização de blocos Try/Catch proporcionam tratamentos de erro de uma forma tipada, previsível e extremamente robusta.
 
 Entretanto, a má utilização desse recurso pode levar a diversos problemas e práticas tenebrosas.
@@ -126,6 +133,7 @@ Dentre os inúmeros problemas, os principais que gostaria de apontar são:
 - Stacktrace loss: o stacktrace da Exception original é perdido quando se usa Catch(Exception ex) { throw ex; }
 - Exceptions are not business logic: Excessões devem ser utilizadas para previnir encerramento abrupto de um programa, e não para programar regras de negócio.
 - Dealing with specific Exceptions: No processo de criação de um arquivo texto, por exemplo, temos uma Exception se parte do caminho não existe. Se não há espaço em disco disponível, temos outra Exception. Se não há permissão de escrita, outra Exception. Tratar da mesma forma todas as diferentes situações pode gerar um bug de difícil identificação.
+>Leitura interessante sobre o assunto: [Exception-Handling-Best-Practices-in-NET](https://www.codeproject.com/Articles/9538/Exception-Handling-Best-Practices-in-NET)
 
 ### Bugs em Runtime
 #### Situação Key&lt;string&gt;/Value&lt;object&gt; pair
@@ -152,3 +160,14 @@ Facade (lê-se "Fássêid": fəˈsɑːd) é um pattern de encapsulamento de func
 O corpo humano, por exemplo, apresenta diversos exemplos desse pattern: O Sistema Digestivo tem como facade a boca e o ânus. Os olhos são facades para conversões de radiação em sinapses para a interpretação e armazenamento em memória pelo cérebro. (...)
 Na aplicação para a questão do Key/Value pair, é uma simplificação deste. 
 Com o pattern, é possivel aplicar encapsulamento, tipagem, unicidade, entre outros. É possível, inclusive, mensurar o tamanho em bytes que estes objetos estão / deverão ocupar em memória.
+___
+## Referências / Bibliografia
+(https://marketplace.visualstudio.com/items?itemName=RojanskyS.NpgsqlPostgreSQLIntegration)
+(https://www.newtonsoft.com/json/help/html/PreserveReferencesHandlingObject.htm)
+(https://www.newtonsoft.com/json/help/html/ReferenceLoopHandlingIgnore.htm)
+(https://stackoverflow.com/questions/31870763/how-to-change-data-source-to-postgresql-in-entity-data-model-wizard-in-vs2010-pr)
+(https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+(https://www.webtrainingroom.com/aspnetcore/connection-string-ef-core)
+(https://dotnetcoretutorials.com/2020/01/31/using-swagger-in-net-core-3/)
+(https://dotnetcoretutorials.com/2019/12/19/using-newtonsoft-json-in-net-core-3-projects/)
+(https://kenhaggerty.com/articles/article/aspnet-core-31-users-without-identity)
