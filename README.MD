@@ -171,3 +171,8 @@ ___
 (https://dotnetcoretutorials.com/2020/01/31/using-swagger-in-net-core-3/)
 (https://dotnetcoretutorials.com/2019/12/19/using-newtonsoft-json-in-net-core-3-projects/)
 (https://kenhaggerty.com/articles/article/aspnet-core-31-users-without-identity)
+(https://github.com/CodeSeven/toastr)
+(https://getbootstrap.com/docs/4.0/)
+(https://fontawesome.com/v4.7.0/icons/)
+(https://jquery.com/)
+(https://github.com/jmosbech/StickyTableHeaders)
