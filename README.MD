@@ -17,9 +17,16 @@
 5. Entity Framework
 6. PostgreSQL
 7. User registration 
-    - Sem utilizar o MS-Identity 
-        Quando você cria um projeto web sem se preparar para utilizar o Identity, incluir depois é bem complicado e com muitos passos
-        Ainda assim
+    - Sem utilizar o MS-Identity:
+        > O Uso de Session é muito comum para quem programa na plataforma MS por pelo menos 15 anos.
+        > 
+        > Porém, o uso de Session em Net Core está atrelado ao controller, dificultando a implementação do Pattern Facade (encapsulamento do acesso para simplificar e evitar bugs em runtime [¹ Bugs Runtime Bugs Reference](#bugs)). Essa implementação ficou muito nebulosa, com configuração muito complicada, com entendimento complexo, apresentando muitos erros, e sem garantias de que conseguiria fazê-lo em tempo.
+        > 
+        > Quando você cria um projeto web sem se preparar para utilizar o Identity, incluir depois é bem complicado e com muitos passos.
+        > 
+        > Não existe a opção de alterar a autenticação, então seria necessário  remover todo o projeto, refazê-lo, importar tudo que já havia sido feito.
+        > 
+        > Ainda que o package do Identity gere bastante código, diminuindo o esforço (menos programação, alguma customização), a opção por registrar sem MS-Identity com cookies acabou ficando muito mais leve e objetiva.
 8. Bootstrap
 9. JQuery
 10. Font-awesome
@@ -97,6 +104,6 @@
 - Implementar telas de gerenciamento dos outros tipos de arquivo
 - Todos os forms de Edição, inclusão e exclusão enviados via ajax
 
-## Considerações
+# Bugs
 - É bem complicado implementar Controle de Usuários com Session e o Design Pattern "Facade" (extraindo para uma classe que encapsula o controle das chaves da sessão), para evitar bugs em runtime.
     - por exemplo, ao atribuir objeto à sessão "Cary",  geraria um NullReferenceException ao tentar utilizar o valor da sessão "Cart", uma vez que as chaves são diferentes. Identificar esse bug demanda muito tempo, muita atenção e uma grande familiaridade do dev com a implementação como um todo.
