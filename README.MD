@@ -176,3 +176,5 @@ ___
 (https://fontawesome.com/v4.7.0/icons/)
 (https://jquery.com/)
 (https://github.com/jmosbech/StickyTableHeaders)
+(https://docs.microsoft.com/pt-br/aspnet/core/security/cors?view=aspnetcore-5.0)
+(https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core)
