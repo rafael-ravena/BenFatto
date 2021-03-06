@@ -178,3 +178,4 @@ ___
 (https://github.com/jmosbech/StickyTableHeaders)
 (https://docs.microsoft.com/pt-br/aspnet/core/security/cors?view=aspnetcore-5.0)
 (https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core)
+[Default JSON serialization to PascalCase, Newton! yep, my friend! that's dot net!!!](https://dotnetcoretutorials.com/2017/01/02/pascalcase-vs-camelcase-asp-net-core/)
