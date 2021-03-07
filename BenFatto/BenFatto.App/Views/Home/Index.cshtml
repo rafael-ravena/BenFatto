@@ -2,7 +2,66 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-justify">
+    <h2 class="display-4">Welcome to this "Rafael Ravena's Ben Fatto" programming test!</h2>
+    <p>Here you will find some "get started" instructions.</p>
+    <section id="database">
+        <h3>Database</h3>
+        <p>First, we need to configure the database!</p>
+        <p>Make sure you have properly configured the database settings in JSON's appsetting file.</p>
+        <p>Connect to your PostgrSQL database, and run the 3 Scripts in the Solution's "/Solution Items" folder. First, the Users.sql. <br />After that, there is no order needed. You can run them in whatever order you want.</p>
+        <p>Now, we have the Database all set and ready to go!</p>
+    </section>
+
+    <section id="app-user">
+        <h3>Application User</h3>
+        <p>In order to use and test this application, you need a user to log into the application.</p>
+        <p>There is no "default" or "master" user... you have to create one.</p>
+        <p>The good news is that we shipped within the application a <a href="#handyman">Handyman</a>. "Someone" to help with a few processes we will need (or just want) to accomplish.</p>
+        <p>The handyman is a console application which is already running.</p>
+        <p>Just enter "user" there, follow the three simple steps and you're gold!</p>
+    </section>
+
+    <section id="bogus-data">
+        <h3>Bogus data</h3>
+        <p>You may want to add some data to test the application. (or maybe not)</p>
+        <p>In <a href="#handyman">Handyman</a> (yep! he is pretty handy indeed.), enter the "SetFile" command to set your local path to where your bogus file will be generated.</p>
+        <p>Proceed as prompted!</p>
+        <p>Now enter the "CreateFile" command.</p>
+        <p>A file with a lot of data (valid and invalid) will be created there where you set the logical path to.</p>
+        <hr />
+        <p>Anyway, if you prefer, you can generate 5 files on the go, and import the data to the database automatically!</p>
+        <p>Just enter the "File" command to the <a href="#handyman">Handyman</a> console when prompted.</p>
+    </section>
+
+    <section id="appication">
+        <h3>The Application</h3>
+        <p>The application it self is pretty simple.</p>
+        <p>There are only a few functionalities available, and all of them are listed in this <i class="fa fa-arrow-left"></i> menu:</p>
+        <ul>
+            <li><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-home"></i>Instruction (this page)</li>
+            <li><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-user-circle"></i>Log in</li>
+            <li><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-address-card-o"></i>Manage you data</li>
+            <li><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-file-text-o"></i>Manage imported files</li>
+            <li><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-file-archive-o"></i>Manage imported Log Rows</li>
+            <li><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-exclamation-circle"></i>Manage imported Log Rows that could not be parsed</li>
+            <li><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-users"></i>Manage Users(only list and add)</li>
+            <li><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-user-times"></i>Log out</li>
+        </ul>
+        <p>Feel free to test them as you wish! Just a few hints:</p>
+        <p>You need a imported file to add a Log Row... if you don't have one, handyman-it so you can do it!</p>
+        <p>Error log rows that are corrected turn into log rows! So keep track of the Ip Address, for instance, to check them out!</p>
+    </section>
+
+    <section id="handyman">
+        <h3>The Handyman Console</h3>
+        <p>He's a contractor! So if you feel like tiping him, he'll be glad to accept valuable bits or commands!</p>
+        <p>This Handyman program is a "testing" tool to emulate in a poor and desperate way the usability of linux programming environments.</p>
+        <p>For instance, when you programming in ruby, and you need to test something, you can open a terminal and type "erb", and there is a ruby tester available for you...</p>
+        <p>MS.Net programmer for my whole life, finding this for the first time become pretty handy, man!!! (bad pun intended)</p>
+        <p>So, whenever somethig needs design-time testing and depuring, Handyman comes in handy!!! (Ooooops, I did it again...)</p>
+        <p>It's my 'imediato' while programming and testing.</p>
+        <p>Never the less, feel free to bust him, to give him power ups and testing steroids if you feel like it!</p>
+    </section>
+
 </div>

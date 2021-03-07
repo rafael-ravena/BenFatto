@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,14 @@ namespace BenFatto.CLF
             });
             services.AddControllers().AddNewtonsoftJson(options => {
                 options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
+            services.AddCors(o => o.AddPolicy("It'sLocalhost,ForChristSake!", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +68,8 @@ namespace BenFatto.CLF
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("It'sLocalhost,ForChristSake!");
 
             app.UseEndpoints(endpoints =>
             {

@@ -34,10 +34,10 @@ namespace BenFatto.CLF.Controllers
             return Get(importId, exception, row, 0);
         }
         [HttpPost]
-        public void Post([FromBody] Model.LogRowMismatch entity)
+        public bool Post([FromBody] Model.LogRowMismatch entity)
         {
             Model.ClfContext context = new Model.ClfContext();
-            new Service.LogRowMismatchService(context).InsertOrUpdate(entity);
+            return new Service.LogRowMismatchService(context).TryCorrect(entity);
         }
         [HttpGet("{id}")]
         public Model.LogRowMismatch Get(long id)
@@ -46,7 +46,7 @@ namespace BenFatto.CLF.Controllers
             return new Service.LogRowMismatchService(context).Get(id);
         }
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
             Model.ClfContext context = new Model.ClfContext();
             new Service.LogRowMismatchService(context).Delete(id);

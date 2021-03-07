@@ -14,7 +14,7 @@ namespace BenFatto.CLF.Controllers
     public class FilesController : ControllerBase
     {
         [HttpPost, DisableRequestSizeLimit]
-        public void Post([FromForm] IFormFile file)
+        public Model.Import Post([FromForm] IFormFile file)
         {
             string dir = Path.Combine(Directory.GetCurrentDirectory(), "ProcessedFiles");
             string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
@@ -25,7 +25,7 @@ namespace BenFatto.CLF.Controllers
             }
             Service.FileProcessor processor = new Service.FileProcessor(uploadedFile);
             Model.ClfContext context = new Model.ClfContext();
-            processor.ProcessFile(context);
+            return processor.ProcessFile(context);
         }
     }
 }

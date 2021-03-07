@@ -50,6 +50,16 @@ namespace BenFatto.CLF.Controllers
             Model.ClfContext context = new Model.ClfContext();
             new Service.LogRowService(context).InsertOrUpdate(entity);
         }
+        [HttpPost("get-row-text/")]
+        public string GetRowText([FromBody] Model.LogRow data)
+        {
+            return data.ToString();
+        }
+        [HttpPost("get-row-object/")]
+        public Model.LogRow GetRowObject([FromBody] DTO.LogRowData data)
+        {
+            return Model.LogRow.Parse(data.Row, data.ImportId, data.RowNumber);
+        }
         [HttpGet("{id}")]
         public Model.LogRow Get(long id)
         {

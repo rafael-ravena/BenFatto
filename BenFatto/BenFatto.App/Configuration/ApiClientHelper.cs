@@ -19,7 +19,11 @@ namespace BenFatto.App
             using (HttpClient client = new HttpClient())
             {
                 using (HttpResponseMessage response = await client.GetAsync(url))
+                {
                     responseData = await response.Content.ReadAsStringAsync();
+                    if (!response.IsSuccessStatusCode)
+                        throw new InvalidOperationException(responseData);
+                }
             }
             return responseData;
         }
@@ -33,8 +37,12 @@ namespace BenFatto.App
                 client.DefaultRequestHeaders.Add("accept", "*/*");
                 client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                using (HttpResponseMessage httpResponse = await client.PostAsync(url, content))
-                    responseData = await httpResponse.Content.ReadAsStringAsync();
+                using (HttpResponseMessage response = await client.PostAsync(url, content))
+                {
+                    responseData = await response.Content.ReadAsStringAsync();
+                    if (!response.IsSuccessStatusCode)
+                        throw new InvalidOperationException(responseData);
+                }
             }
             return responseData;
         }
@@ -42,20 +50,30 @@ namespace BenFatto.App
         {
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.DeleteAsync(url);
+                using (HttpResponseMessage response = await client.DeleteAsync(url))
+                    if (!response.IsSuccessStatusCode)
+                        throw new InvalidOperationException(await response.Content.ReadAsStringAsync());
+
             }
         }
-        public static async Task ExecuteMultipartPostAsync(string url, byte[] file)
+        public static async Task<string> ExecuteMultipartPostAsync(string url, byte[] file)
         {
+            string responseData;
             using(HttpClient client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromMinutes(10);
                 using (MultipartFormDataContent content = new MultipartFormDataContent())
                 {
                     content.Add(new StreamContent(new MemoryStream(file)), "file", $"{DateTime.Now:yyyyMMdd-HHmmssfff}.log");
-                    HttpResponseMessage httpResponse = await client.PostAsync(url, content);
+                    using (HttpResponseMessage response = await client.PostAsync(url, content))
+                    {
+                        responseData = await response.Content.ReadAsStringAsync();
+                        if (!response.IsSuccessStatusCode)
+                            throw new InvalidOperationException(responseData);
+                    }
                 }
             }
+            return responseData;
         }
         public static string ImportsFilter
         {
@@ -111,6 +129,20 @@ namespace BenFatto.App
             get
             {
                 return $"{SettingsManager.Current.BaseUrl}{SettingsManager.Current.Files}";
+            }
+        }
+        public static string LogObjectToRowUrl
+        {
+            get
+            {
+                return $"{LogRowUrl}{SettingsManager.Current.LogObjectToRow}";
+            }
+        }
+        public static string LogRowToObjectUrl
+        {
+            get
+            {
+                return $"{LogRowUrl}{SettingsManager.Current.LogRowToObject}";
             }
         }
     }

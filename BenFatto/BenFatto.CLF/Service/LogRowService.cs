@@ -28,7 +28,7 @@ namespace BenFatto.CLF.Service
                  ((e.Date >= entity.Date.BeginningOfHour() && e.Date < entity.Date.NextHour()) || DateTime.MinValue == entity.Date) &&
                  (string.IsNullOrEmpty(entity.UserAgent) || e.UserAgent.Contains(entity.UserAgent)) &&
                  (e.Method == entity.Method || 0 == entity.Method)
-            ).Skip(page * size).Take(size);
+            ).OrderBy(e => e.Date).ThenBy(e => e.RowNumber).ThenBy(e => e.ImportId).Skip(page * size).Take(size);
         }
 
 
@@ -58,7 +58,7 @@ namespace BenFatto.CLF.Service
         }
         public IEnumerable<DTO.UserAgent> GetDistinctUserAgents()
         {
-            return Context.LogRows.Select(e => new DTO.UserAgent { Name = e.UserAgent }).Distinct();
+            return Context.LogRows.Select(e => new DTO.UserAgent { Name = e.UserAgent }).Distinct().OrderBy(e => e.Name);
         }
 
     }

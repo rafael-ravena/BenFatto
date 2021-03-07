@@ -28,7 +28,7 @@ CREATE TABLE public."LogRow"
     "IpAddress" character varying(15) COLLATE pg_catalog."default" NOT NULL,
     "RfcId" character varying(255) COLLATE pg_catalog."default" NOT NULL,
     "UserId" character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    "Date" date NOT NULL,
+    "Date" timestamp without time zone NOT NULL,
     "TimeZone" smallint NOT NULL,
     "Method" smallint NOT NULL,
     "Resource" character varying(255) COLLATE pg_catalog."default" NOT NULL,

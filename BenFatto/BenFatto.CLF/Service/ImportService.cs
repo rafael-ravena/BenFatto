@@ -16,7 +16,7 @@ namespace BenFatto.CLF.Service
                 (e.SuccessCount > 0 || 0 == entity.SuccessCount) &&
                 (e.ErrorCount > 0 || 0 == entity.ErrorCount) &&
                 (string.IsNullOrEmpty(entity.FileName) || e.FileName.Contains(entity.FileName))
-            );
+            ).OrderBy(e => e.When);
         }
         public override Import Get(long entityId)
         {

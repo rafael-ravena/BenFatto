@@ -11,5 +11,14 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/sticky-table-headers.min.js",
+    "inputFiles": [ "wwwroot/js/sticky-table-headers.js" ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

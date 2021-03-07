@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -43,16 +44,29 @@ namespace BenFatto.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] DTO.File file)
         {
-            byte[] content;
-            using (MemoryStream stream = new MemoryStream())
+            try
             {
-                file.LogFile.CopyTo(stream);
-                content = stream.ToArray();
+                byte[] content;
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    file.LogFile.CopyTo(stream);
+                    content = stream.ToArray();
+                }
+                string response = await ApiClientHelper.ExecuteMultipartPostAsync($"{ApiClientHelper.FileUploadUrl}", content);
+                DTO.Import import = JsonConvert.DeserializeObject<DTO.Import>(response);
+                messageType = "success";
+                message = $"File imported with {import.SuccessCount} rows successfuly processed, and {import.ErrorCount} rows with error.";
             }
-            await ApiClientHelper.ExecuteMultipartPostAsync($"{ApiClientHelper.FileUploadUrl}", content);
+            catch (Exception ex)
+            {
+                messageType = "error";
+                message = $"Something went wrong: {ex.Message}";
+            }
+            finally
+            {
+                ((Controller)this).DisplayTempData(messageType, message);
+            }
             return RedirectToAction("Index");
         }
-
-
     }
 }

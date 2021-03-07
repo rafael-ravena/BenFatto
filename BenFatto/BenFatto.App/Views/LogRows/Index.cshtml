@@ -66,19 +66,19 @@
                         <td width="10%" class="text-right">
                             <a asp-action="Detail" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
                                asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-success"
-                               title="View This Error Row Details!" data-toggle="modal" data-target="#DetailModal"
-                               data-behavior="display-modal" data-arg="Row with error" id="RowDetail@(item.Id)">
+                               title="View This Log Row Details!" data-toggle="modal" data-target="#DetailModal"
+                               data-behavior="display-modal" data-arg="Log Row" id="RowDetail@(item.Id)">
                                 <i class="fa fa-fw fa-info-circle"></i>
                             </a>
                             <a asp-action="Edit" asp-route-id="@item.Id" asp-route-importId="@item.ImportId"
                                asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-primary"
-                               title="Edit This Error Row!" data-toggle="modal" data-target="#DetailModal"
-                               data-behavior="edit-element" data-arg="Row with error" id="RowEdit@(item.Id)">
+                               title="Edit This Log Row!" data-toggle="modal" data-target="#DetailModal"
+                               data-behavior="edit-element" data-arg="Log Row" id="RowEdit@(item.Id)">
                                 <i class="fa fa-fw fa-edit"></i>
                             </a>
                             <a asp-action="Delete" asp-route-Id="@item.Id" asp-route-importId="@item.ImportId"
-                               asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-danger" title="Delete This Error Row?"
-                               data-behavior="confirm-delete" data-arg="Delete Row With Error?" data-target="#RowDetail@(item.Id)">
+                               asp-route-page="@(Context.Request.Query["page"])" class="btn btn-sm btn-outline-danger" title="Delete This Imported Log Row?"
+                               data-behavior="confirm-delete" data-arg="Delete Log Row?" data-target="#RowDetail@(item.Id)">
                                 <i class="fa fa-fw fa-trash"></i>
                             </a>
                         </td>

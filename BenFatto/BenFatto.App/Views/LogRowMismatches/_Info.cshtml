@@ -7,14 +7,17 @@
         @Html.DisplayFor(@model => @model.Id)
     </div>
 </div>
-<div class="row">
-    <div class="col-md-3">
-        @Html.DisplayNameFor(@model => model.ImportId)
+@if (null != Model.Import)
+{
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(@model => model.Import.FileName)
+        </div>
+        <div class="col">
+            @Html.DisplayFor(@model => @model.Import.FileNameDisplay)
+        </div>
     </div>
-    <div class="col">
-        @Html.DisplayFor(@model => @model.ImportId)
-    </div>
-</div>
+}
 <div class="row">
     <div class="col-md-3">
         @Html.DisplayNameFor(@model => model.OriginalRowNumber)

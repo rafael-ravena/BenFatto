@@ -14,6 +14,7 @@ namespace BenFatto.App.Controllers.Account
 {
     public class AccountController : Controller
     {
+        string messageType = string.Empty, message = string.Empty;
         public IActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
@@ -25,15 +26,29 @@ namespace BenFatto.App.Controllers.Account
         [HttpPost]
         public IActionResult Login([FromForm] BenFattoUser user)
         {
-            using (BenFattoAppContext context = new BenFattoAppContext())
+            try
             {
-                BenFattoUser loggingInUser = context.Users.FirstOrDefault(u =>
-                    u.Email.ToLower() == user.Email.ToLower() &&
-                    u.Password == user.Password
-                );
-                if (null == loggingInUser)
-                    return Forbid();
-                SignUserIn(loggingInUser);
+                using (BenFattoAppContext context = new BenFattoAppContext())
+                {
+                    BenFattoUser loggingInUser = context.Users.FirstOrDefault(u =>
+                        u.Email.ToLower() == user.Email.ToLower() &&
+                        u.Password == user.Password
+                    );
+                    if (null == loggingInUser)
+                        return Forbid();
+                    SignUserIn(loggingInUser);
+                }
+                messageType = "info";
+                message = $"You have successfuly logged into this application!";
+            }
+            catch (Exception ex)
+            {
+                messageType = "error";
+                message = $"Something went wrong: {ex.Message}";
+            }
+            finally
+            {
+                ((Controller)this).DisplayTempData(messageType, message);
             }
             return Redirect("~/");
         }
@@ -50,6 +65,7 @@ namespace BenFatto.App.Controllers.Account
         public IActionResult Signout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            ((Controller)this).DisplayTempData("info", "You have successfuly logged out from this application!");
             return Redirect("/Account/Logout");
         }
         [Authorize]
@@ -66,12 +82,19 @@ namespace BenFatto.App.Controllers.Account
         public ActionResult<DTO.User> Edit(int id)
         {
             if (User.Claims.FirstOrDefault(c => c.Type == "Id").Value != id.ToString())
-                return Forbid();
+            {
+                ((Controller)this).DisplayTempData("warning", "You are not supposed to edit other user's data!");
+                return Redirect("~/");
+            }
+
             using (BenFattoAppContext context = new BenFattoAppContext())
             {
                 BenFattoUser loggedUser = context.Users.FirstOrDefault(u => u.Id == id);
                 if (null == loggedUser)
-                    return NotFound();
+                {
+                    ((Controller)this).DisplayTempData("warning", "Seems we can't find your data!");
+                    return Redirect("~/");
+                }
                 return View(new DTO.User
                 {
                     Id = loggedUser.Id,
@@ -85,20 +108,41 @@ namespace BenFatto.App.Controllers.Account
         [HttpPost]
         public ActionResult<Model.BenFattoUser> Edit([FromForm] DTO.User user)
         {
-            using (BenFattoAppContext context = new BenFattoAppContext())
+            try
             {
-                BenFattoUser loggedUser = context.Users.FirstOrDefault(u => u.Id == user.Id);
-                if (null == loggedUser)
-                    return NotFound();
-                if (loggedUser.Password != user.Password)
-                    return Forbid();
-                loggedUser.Password = user.NewPassword;
-                loggedUser.Name = user.Name;
-                loggedUser.Email = user.Email;
-                context.Entry(loggedUser).State = EntityState.Modified;
-                context.SaveChanges();
-                HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                SignUserIn(loggedUser);
+                using (BenFattoAppContext context = new BenFattoAppContext())
+                {
+                    BenFattoUser loggedUser = context.Users.FirstOrDefault(u => u.Id == user.Id);
+                    if (null == loggedUser)
+                    {
+                        ((Controller)this).DisplayTempData("warning", "Oooops! Seems like your user is not available! Please verify");
+                        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                        return Redirect("~/");
+                    }
+                    if (loggedUser.Password != user.Password)
+                    {
+                        ((Controller)this).DisplayTempData("warning", "Your password does not match! please try again!");
+                        return Redirect(Request.Headers["Referer"].ToString());
+                    }
+                    loggedUser.Password = user.NewPassword;
+                    loggedUser.Name = user.Name;
+                    loggedUser.Email = user.Email;
+                    context.Entry(loggedUser).State = EntityState.Modified;
+                    context.SaveChanges();
+                    HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    SignUserIn(loggedUser);
+                }
+                messageType = "success";
+                message = $"You have successfully updated your data!";
+            }
+            catch (Exception ex)
+            {
+                messageType = "error";
+                message = $"Something went wrong: {ex.Message}";
+            }
+            finally
+            {
+                ((Controller)this).DisplayTempData(messageType, message);
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -111,10 +155,24 @@ namespace BenFatto.App.Controllers.Account
         [HttpPost]
         public IActionResult Create([FromForm] BenFattoUser user)
         {
-            using (BenFattoAppContext context = new BenFattoAppContext())
+            try
             {
-                context.Users.Add(user);
-                context.SaveChanges();
+                using (BenFattoAppContext context = new BenFattoAppContext())
+                {
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                }
+                messageType = "success";
+                message = $"User {user.Name} created successfully!";
+            }
+            catch (Exception ex)
+            {
+                messageType = "error";
+                message = $"Something went wrong: {ex.Message}";
+            }
+            finally
+            {
+                ((Controller)this).DisplayTempData(messageType, message);
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }

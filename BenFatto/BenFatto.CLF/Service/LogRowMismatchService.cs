@@ -25,19 +25,20 @@ namespace BenFatto.CLF.Service
                 (e.ImportId == entity.ImportId || 0 == entity.ImportId) &&
                 (string.IsNullOrEmpty(entity.ThrownException) || e.ThrownException.Contains(entity.ThrownException)) &&
                 (string.IsNullOrEmpty(entity.Row) || e.Row.Contains(entity.Row))
-            ).Skip(page * size).Take(size);
+            ).OrderBy(e => e.OriginalRowNumber).ThenBy(e => e.ImportId).Skip(page * size).Take(size);
         }
 
         public override LogRowMismatch Get(long entityId)
         {
             return Context.LogRowMismatches.FirstOrDefault(e => e.Id == entityId);
         }
-        public override void InsertOrUpdate(LogRowMismatch entity)
+        public bool TryCorrect(LogRowMismatch entity)
         {
+            bool validRow = false;
             if (0 != entity.Id)
             {
                 LogRow corrected = entity.TryConvert();
-                if(null != corrected)
+                if(validRow = (null != corrected))
                 {
                     new LogRowService(Context).InsertOrUpdate(corrected);
                     entity.Corrected = true;
@@ -45,6 +46,7 @@ namespace BenFatto.CLF.Service
                 }
             }
             base.InsertOrUpdate(entity);
+            return validRow;
         }
         List<Model.LogRowMismatch> LogRowMismatches { get; set; }
         public void InsertCollection(Model.LogRowMismatch entity)

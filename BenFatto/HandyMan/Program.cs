@@ -30,42 +30,52 @@ namespace HandyMan
             string line;
             while ("exit" != (line = Console.ReadLine()))
             {
-                switch (line.ToLower())
+                try
                 {
-                    case "intparser":
-                        CheckIntParser();
-                        break;
-                    case "settings":
-                        TestSettingsReader();
-                        break;
-                    case "createfile":
-                        string file = GenerateFile();
-                        WriteOut($"File successfuly created: {file}");
-                        break;
-                    case "file":
-                        ImportFewFiles();
-                        break;
-                    case "parse":
-                        WriteOut("Enter the row to test and press enter!");
-                        TestLogRowParse(Console.ReadLine());
-                        break;
-                    case "setfile":
-                        WriteOut("Enter the file name to be generated!");
-                        FileName = Console.ReadLine();
-                        break;
-                    case "user":
-                        CreateDefaulUser();
-                        break;
-                    case "help":
-                        HelpMe();
-                        break;
-                    default:
-                        WriteOut("Command not found!");
-                        HelpMe();
-                        WriteOut("");
-                        break;
+
+                    switch (line.ToLower())
+                    {
+                        case "intparser":
+                            CheckIntParser();
+                            break;
+                        case "settings":
+                            TestSettingsReader();
+                            break;
+                        case "createfile":
+                            string file = GenerateFile();
+                            WriteOut($"File successfuly created: {file}");
+                            break;
+                        case "file":
+                            ImportFewFiles();
+                            break;
+                        case "parse":
+                            WriteOut("Enter the row to test and press enter!");
+                            TestLogRowParse(Console.ReadLine());
+                            break;
+                        case "setfile":
+                            WriteOut("Enter the file name to be generated!");
+                            FileName = Console.ReadLine();
+                            break;
+                        case "user":
+                            CreateDefaulUser();
+                            break;
+                        case "help":
+                            HelpMe();
+                            break;
+                        default:
+                            WriteOut("Command not found!");
+                            HelpMe();
+                            WriteOut("");
+                            break;
+                    }
+                    Instructions();
                 }
-                Instructions();
+                catch (Exception ex)
+                {
+                    WriteOut(ex.ToString());
+                    WriteOut("That's what happened... and I don't think it's you fault! Let's just try again, shall we??");
+                    Instructions();
+                }
             }
         }
 

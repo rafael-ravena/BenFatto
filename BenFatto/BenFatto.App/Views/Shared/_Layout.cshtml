@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BenFatto.App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body class="menu-expanded">
@@ -20,12 +20,18 @@
     <nav id="MenuContainer" class="menu-left">
         <div id="MenuCollapse" class="collapse show">
             <ul id="Menu" class="list-group">
+                <li class="list-item">
+                    <a asp-action="Index" asp-controller="Home" title="Back to the instructions!">
+                        <i class="fa fa-fw fa-home"></i> Instructions (home page)
+                    </a>
+                </li>
+                <li class="menu-separator"> </li>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="list-item">
                         <a asp-action="Edit" asp-controller="Account" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "Id").Value" title="Edit your data"
                            data-toggle="modal" data-target="#DetailModal" data-behavior="display-modal">
-                            <i class="fa fa-fw fa-address-card-o"></i> @User.Identity.Name 
+                            <i class="fa fa-fw fa-address-card-o"></i> @User.Identity.Name
                         </a>
                     </li>
                     <li class="menu-separator"> </li>
@@ -142,10 +148,14 @@
             </div>
         </div>
     </div>
+    <div class="d-none">
+        <span id="ToastrType">@(TempData["ToastrType"])</span>
+        <span id="ToastrMsg">@(TempData["ToastrMessage"])</span>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://unpkg.com/sticky-table-headers"></script>
+    <script src="~/js/sticky-table-headers.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

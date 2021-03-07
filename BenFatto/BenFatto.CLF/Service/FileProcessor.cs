@@ -18,7 +18,7 @@ namespace BenFatto.CLF.Service
                 When = DateTime.Now
             };
         }
-        public void ProcessFile(ClfContext context)
+        public Import ProcessFile(ClfContext context)
         {
             ImportService importService = new ImportService(context);
             importService.InsertOrUpdate(Import);
@@ -58,6 +58,7 @@ namespace BenFatto.CLF.Service
                     file.Flush();
                 }
             }
+            return Import;
         }
     }
 }

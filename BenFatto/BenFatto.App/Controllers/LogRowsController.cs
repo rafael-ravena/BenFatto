@@ -28,26 +28,92 @@ namespace BenFatto.App.Controllers
             string responseData = await ApiClientHelper.ExecuteGetAsync($"{ApiClientHelper.LogRowFilter}?{string.Join("&", data)}");
             string userAgentsResponseData = await ApiClientHelper.ExecuteGetAsync($"{ApiClientHelper.UserAgentsUrl}");
             ViewBag.UserAgents = JsonConvert.DeserializeObject<List<DTO.UserAgent>>(userAgentsResponseData).Select(i => new SelectListItem { Text = i.Name, Value = i.Name });
-            ViewBag.Methods = new List<SelectListItem> {
-                new SelectListItem { Value = "0", Text="GET"},
-                new SelectListItem { Value = "1", Text="PUT"},
-                new SelectListItem { Value = "2", Text="POST"},
-                new SelectListItem { Value = "3", Text="PATCH"},
-                new SelectListItem { Value = "4", Text="DELETE"}
-            };
+            ViewBag.Methods = SettingsManager.Current.HttpMethods;
             return View(JsonConvert.DeserializeObject<List<DTO.LogRow>>(responseData));
+        }
+        public async Task<IActionResult> Detail(long? id, long importId, int page)
+        {
+            if (id == null)
+                return NotFound();
+            string responseData = await ApiClientHelper.ExecuteGetAsync($"{ApiClientHelper.LogRowUrl}/{id}");
+            DTO.LogRow row = JsonConvert.DeserializeObject<DTO.LogRow>(responseData);
+            if (row == null)
+                return NotFound();
+            return View(row);
         }
         public IActionResult Create(long importId = 0)
         {
-            ViewBag.Methods = new List<SelectListItem> {
-                new SelectListItem { Value = "0", Text="GET"},
-                new SelectListItem { Value = "1", Text="PUT"},
-                new SelectListItem { Value = "2", Text="POST"},
-                new SelectListItem { Value = "3", Text="PATCH"},
-                new SelectListItem { Value = "4", Text="DELETE"}
-            };
+            ViewBag.Methods = SettingsManager.Current.HttpMethods;
             ViewBag.UtcOffsetRange = SettingsManager.Current.UtcOffsetRange;
-            return View(new DTO.LogRow());
+            return View(new DTO.LogRow { ImportId = importId });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(int importId, [FromForm] DTO.LogRow logRow)
+        {
+            try
+            {
+                string responseData = await ApiClientHelper.ExecutePostAsync($"{ApiClientHelper.LogRowUrl}", JsonConvert.SerializeObject(logRow, new JsonSerializerSettings
+                {
+                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                    NullValueHandling = NullValueHandling.Ignore
+                }));
+                messageType = "success";
+                message = $"Log Row successfuly added!";
+            }
+            catch (Exception ex)
+            {
+                messageType = "error";
+                message = $"Something went wrong: {ex.Message}";
+            }
+            finally
+            {
+                ((Controller)this).DisplayTempData(messageType, message);
+            }
+            return RedirectToAction("Index", new { importId = importId });
+        }
+        public async Task<IActionResult> Edit(long? id, long importId, int page)
+        {
+            if (id == null)
+                return NotFound();
+            string responseData = await ApiClientHelper.ExecuteGetAsync($"{ApiClientHelper.LogRowUrl}/{id}");
+            DTO.LogRow row = JsonConvert.DeserializeObject<DTO.LogRow>(responseData);
+            if (row == null)
+                return NotFound();
+            ViewBag.Methods = SettingsManager.Current.HttpMethods;
+            ViewBag.UtcOffsetRange = SettingsManager.Current.UtcOffsetRange;
+            return View(row);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromForm] DTO.LogRow logRow)
+        {
+            try
+            {
+                string responseData = await ApiClientHelper.ExecutePostAsync($"{ApiClientHelper.LogRowUrl}", JsonConvert.SerializeObject(logRow, new JsonSerializerSettings
+                {
+                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                    NullValueHandling = NullValueHandling.Ignore
+                }));
+                messageType = "success";
+                message = $"You have successfully edited this row!";
+            }
+            catch (Exception ex)
+            {
+                messageType = "error";
+                message = $"Something went wrong: {ex.Message}";
+            }
+            finally
+            {
+                ((Controller)this).DisplayTempData(messageType, message);
+            }
+            return RedirectToAction("Index", new { importId = logRow.ImportId });
+        }
+        public async Task<IActionResult> Delete(long? id, long importId, int page)
+        {
+            if (id == null)
+                return NotFound();
+            await ApiClientHelper.ExecuteDeleteAsync($"{ApiClientHelper.LogRowUrl}/{id}");
+            ((Controller)this).DisplayTempData("warning", $"Log row deleted successfuly.");
+            return RedirectToAction("index", new { importId = importId, page = page });
         }
     }
 }

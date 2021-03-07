@@ -1,0 +1,132 @@
+﻿@model BenFatto.App.DTO.LogRow
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Id)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.Id)
+    </div>
+</div>
+@if (null != Model.Import)
+{
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(@model => model.Import.FileName)
+        </div>
+        <div class="col">
+            @Html.DisplayFor(@model => @model.Import.FileNameDisplay)
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.IpAddress)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.IpAddress)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.RfcId)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.RfcId)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.UserId)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.UserId)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Date)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.Date)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.TimeZone)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.TimeZone)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Method)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.Method)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Resource)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.Resource)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Protocol)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.Protocol)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.ResponseCode)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.ResponseCode)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.ResponseSize)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.ResponseSize)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.Referer)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.Referer)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.UserAgent)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.UserAgent)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.OriginalLine)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.OriginalLine)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(@model => model.RowNumber)
+    </div>
+    <div class="col">
+        @Html.DisplayFor(@model => @model.RowNumber)
+    </div>
+</div>

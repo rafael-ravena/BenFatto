@@ -1,0 +1,7 @@
+﻿@model BenFatto.App.DTO.LogRow
+@{
+    Layout = null;
+}
+<form asp-action="Edit" method="post" data-behavior="search-row" data-search-row="@(ApiClientHelper.LogObjectToRowUrl)" data-target="#OriginalLine">
+    @await Html.PartialAsync("_Fields", Model)
+</form>

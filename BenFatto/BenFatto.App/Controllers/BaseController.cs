@@ -11,8 +11,12 @@ namespace BenFatto.App.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+        internal string messageType;
+        internal string message;
         public BaseController() : base()
         {
+            messageType = string.Empty;
+            message = string.Empty;
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -87,6 +88,12 @@ namespace BenFatto
             if (DisplayAttribute != null)
                 return DisplayAttribute.Name;
             return value.ToString();
+        }
+
+        public static void DisplayTempData(this Controller controller, string messageType, string message)
+        {
+            controller.TempData["ToastrType"] = messageType;
+            controller.TempData["ToastrMessage"] = message;
         }
 
     }

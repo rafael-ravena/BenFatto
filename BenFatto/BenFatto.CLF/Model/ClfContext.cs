@@ -56,7 +56,7 @@ namespace BenFatto.CLF.Model
             {
                 entity.ToTable("LogRow");
 
-                entity.Property(e => e.Date).HasColumnType("date");
+                entity.Property(e => e.Date).HasColumnType("timestamp");
 
                 entity.Property(e => e.IpAddress)
                     .IsRequired()

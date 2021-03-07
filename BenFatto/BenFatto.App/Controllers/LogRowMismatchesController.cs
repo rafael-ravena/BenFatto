@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
+using System;
 
 namespace BenFatto.App.Controllers
 {
@@ -48,19 +49,38 @@ namespace BenFatto.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(long importId, int page, [FromForm] DTO.LogRowMismatch entity)
         {
-            string responseData = await ApiClientHelper.ExecutePostAsync($"{ApiClientHelper.LogRowMismatchesUrl}", JsonConvert.SerializeObject(entity, new JsonSerializerSettings
+            try
             {
-                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
-                NullValueHandling = NullValueHandling.Ignore
-            }));
+                string responseData = await ApiClientHelper.ExecutePostAsync($"{ApiClientHelper.LogRowMismatchesUrl}", JsonConvert.SerializeObject(entity, new JsonSerializerSettings
+                {
+                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                    NullValueHandling = NullValueHandling.Ignore
+                }));
+                bool converted = bool.Parse(responseData);
+                messageType = (converted ? "success" : "warning");
+                message = $"Log row{ (converted ? "" : " not") } converted to Row.";
+            }
+            catch (Exception ex)
+            {
+                messageType = "error";
+                message = $"Something went wrong: {ex.Message}";
+            }
+            finally
+            {
+                ((Controller)this).DisplayTempData(messageType, message);
+            }
             return RedirectToAction("index", new { importId = importId, page = page });
         }
         // GET: LogRowMismatches/Delete/5?importId={0}&page={1}
         public async Task<IActionResult> Delete(long? id, long importId, int page)
         {
             if (id == null)
-                return NotFound();
+            {
+                ((Controller)this).DisplayTempData("warning", "Sorry! We can't find this Log Error you are trying to delete! Maybe you've already deleted it, didn't you?");
+                return Redirect(Request.Headers["Referer"].ToString());
+            }
             await ApiClientHelper.ExecuteDeleteAsync($"{ApiClientHelper.LogRowMismatchesUrl}/{id}");
+            ((Controller)this).DisplayTempData("warning", $"Log row with error deleted successfuly.");
             return RedirectToAction("index", new { importId = importId, page = page });
         }
 

@@ -63,14 +63,14 @@ body.menu-expanded #MenuContainer {
 
 #Menu li.list-item {
     background-color: #428bca;
-    color: #ebebeb;
+    color: #fff;
 }
 
     #Menu li.list-item a {
         font-family: 'Pathway Gothic One', sans-serif;
         text-transform: uppercase;
         font-size: 1.5em;
-        color: #ebebeb;
+        color: #fff;
         width: 100%;
         display: inline-block;
         padding: 5px;
@@ -106,6 +106,53 @@ body.menu-expanded #MenuContainer {
     margin-top: 1rem;
 }
 
+.error-message {
+    position: absolute;
+    right: 25px;
+    top: 10px;
+}
+
+.loader-container {
+    position: absolute;
+    top:0;right:0;bottom:0;left:0;
+    background-color: rgba(255,255,255,.8);
+    min-height: 150px;
+}
+
+.loader {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    top: 50%;
+    margin-top: -50px;
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #3498db;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 footer {
     position: fixed;
     bottom: 0px;
@@ -118,4 +165,11 @@ footer {
 
 .action-btn {
     width: 250px;
+}
+
+.toast-top-full-width {
+    top: 15px;
+}
+.toast {
+    max-width: initial;
 }
