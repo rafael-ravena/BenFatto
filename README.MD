@@ -1,3 +1,13 @@
+# Teste de programação: Ben Fatto
+Para efetuar este teste, algumas escolhas foram puramente direcionadas à demostração da impe=lementação de técnicas e experiências em programação.
+
+Por exemplo, a não utilização de Dependency Injection, que hoje é extremamente comum em .Net, é uma opção para implementar outros conceitos e padrões.
+Ainda, a não utilização dos controles de validação do Asp.Net MVC, é também uma opção para implementar rotinas em Javascript/JQuery, e demonstrar o domínio sobre a linguagem.
+
+Postas essas questões, seguimos!
+
+Para melhor avaliar este teste, execute a aplicação e acompanhe as intruções na Página Inicial.
+
 ## Arquitetura e Design Patterns Aplicados
 1. DDD
 2. Micro Services
