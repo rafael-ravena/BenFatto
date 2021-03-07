@@ -1,6 +1,9 @@
 ﻿body, * {
     font-family: 'Open Sans', sans-serif;
 }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-size: 12px;
