@@ -173,19 +173,36 @@ Com o pattern, é possivel aplicar encapsulamento, tipagem, unicidade, entre out
 ___
 ## Referências / Bibliografia
 (https://marketplace.visualstudio.com/items?itemName=RojanskyS.NpgsqlPostgreSQLIntegration)
+
 (https://www.newtonsoft.com/json/help/html/PreserveReferencesHandlingObject.htm)
+
 (https://www.newtonsoft.com/json/help/html/ReferenceLoopHandlingIgnore.htm)
+
 (https://stackoverflow.com/questions/31870763/how-to-change-data-source-to-postgresql-in-entity-data-model-wizard-in-vs2010-pr)
+
 (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
 (https://www.webtrainingroom.com/aspnetcore/connection-string-ef-core)
+
 (https://dotnetcoretutorials.com/2020/01/31/using-swagger-in-net-core-3/)
+
 (https://dotnetcoretutorials.com/2019/12/19/using-newtonsoft-json-in-net-core-3-projects/)
+
 (https://kenhaggerty.com/articles/article/aspnet-core-31-users-without-identity)
+
 (https://github.com/CodeSeven/toastr)
+
 (https://getbootstrap.com/docs/4.0/)
+
 (https://fontawesome.com/v4.7.0/icons/)
+
 (https://jquery.com/)
+
 (https://github.com/jmosbech/StickyTableHeaders)
+
 (https://docs.microsoft.com/pt-br/aspnet/core/security/cors?view=aspnetcore-5.0)
+
 (https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core)
+
 [Default JSON serialization to PascalCase, Newton! yep, my friend! that's dot net!!!](https://dotnetcoretutorials.com/2017/01/02/pascalcase-vs-camelcase-asp-net-core/)
+
